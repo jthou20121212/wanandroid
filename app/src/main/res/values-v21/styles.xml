@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@color/colorPrimary</item>
+        <!--状态栏透明-->
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <!--Navigation栏透明-->
+        <item name="android:windowTranslucentNavigation">false</item>
+    </style>
+</resources>

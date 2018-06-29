@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="tab_bac">#049486</color>
+    <color name="setting_text">#5b5d5c</color>
+    <color name="light_tab_bac">#45c1b5</color>
+
+    <color name="light_deep_red">#f9382a</color>
+    <color name="light_green">#3fc75f</color>
+    <color name="comment_text">#5b5d5c</color>
+    <color name="light_red">#e26d2e</color>
+    <color name="deep_red">#dc3b1f</color>
+    <color name="colorPrimaryOverlay">#00abff</color>
+
+    <color name="gray_ccc">#cccccc</color>
+    <color name="gray_ddd">#dddddd</color>
+    <color name="gray_eee">#EEEEEE</color>
+    <color name="gray_666">#FF666666</color>
+
+    <color name="drawer_item_bg_p">#e8e8e8</color>
+    <color name="drawer_item_bg_n">#fffff9</color>
+
+    <color name="shallow_grey">#FF757575</color>
+    <color name="deep_grey">#e6e6e6</color>
+    <color name="title_black">#222222</color>
+
+</resources>

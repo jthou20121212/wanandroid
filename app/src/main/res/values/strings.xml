@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">wanandroid</string>
+    <string name="login">登录</string>
+    <string name="favorite">我的收藏</string>
+    <string name="about">关于我们</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="search">搜索</string>
+    <string name="home_page">首页</string>
+    <string name="knowledge_hierarchy">知识体系</string>
+    <string name="navigation">导航</string>
+    <string name="project">项目</string>
+
+    <string name="error_tips">不妙！加载失败了ヽ(≧Д≦)ノ\n 告诉大佬一些可能的原因：\n1.不可直视的网络环境\n 2.服务器大哥的不定期抽风\n 3.WanAndroid眼冒金星拒绝服务喔~</string>
+    <string name="reload">重新加载</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <string name="username">用户名</string>
+    <string name="password">密码</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="account_password_null_tint">用户名或密码不能为空</string>
+
+    <string name="http_error">网络异常</string>
+    <string name="unKnown_error">未知错误</string>
+    <string name="login_fail">登录失败ヽ(≧Д≦)ノ</string>
+    <string name="register_fail">注册失败ヽ(≧Д≦)ノ</string>
+    <string name="auto_login_success">自动登录成功</string>
+
+    <string name="hot_search">热搜</string>
+
+    <string name="behavior_appbar_layout" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
+    <string name="bye_burger_bottom_behavior">com.wingsofts.byeburgernavigationview.ByeBurgerBottomBehavior</string>
+
+    <string name="index_count">%1$d/%2$d</string>
+
+</resources>
