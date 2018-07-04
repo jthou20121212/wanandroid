@@ -17,6 +17,7 @@ import com.jthou.wanandroid.model.entity.Article;
 import com.jthou.wanandroid.model.entity.ProjectClassify;
 import com.jthou.wanandroid.presenter.main.ProjectPresenter;
 import com.jthou.wanandroid.ui.main.adapter.ProjectListAdapter;
+import com.jthou.wanandroid.util.LogHelper;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -56,6 +57,7 @@ public class ProjectFragment extends ParentFragment<ProjectPresenter> implements
         mTabLayout.addOnTabSelectedListener(this);
         mCurrentProjectClassify = projectClassifyList.get(0);
         mPresenter.getProjectList(mCurrentPage, mCurrentProjectClassify.getId());
+        showLoading();
     }
 
     @Override
@@ -67,6 +69,9 @@ public class ProjectFragment extends ParentFragment<ProjectPresenter> implements
             mAdapter.addData(articleList);
             mSmartRefreshLayout.finishLoadMore();
         }
+        showNormal();
+
+        LogHelper.e("showProjectList");
     }
 
     @Override
@@ -118,6 +123,14 @@ public class ProjectFragment extends ParentFragment<ProjectPresenter> implements
         mCurrentPage++;
         mPresenter.getProjectList(mCurrentPage, mCurrentProjectClassify.getId());
         // mSmartRefreshLayout.finishLoadMore(2000);
+    }
+
+    @Override
+    public void reload() {
+        showLoading();
+        mPresenter.getProjectList(mCurrentPage, mCurrentProjectClassify.getId());
+
+        LogHelper.e("reload");
     }
 
     public static ProjectFragment newInstance() {

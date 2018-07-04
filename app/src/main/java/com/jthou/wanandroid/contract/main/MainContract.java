@@ -30,6 +30,8 @@ public interface MainContract {
 
         int getCurrentItem();
 
+        void setCurrentItem(int currentItem);
+
     }
 
 }

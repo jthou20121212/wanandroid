@@ -60,6 +60,11 @@ public class MainPresenter extends ParentPresenter<MainContract.View> implements
     }
 
     @Override
+    public void setCurrentItem(int currentItem) {
+        mDataManager.saveCurrentItem(currentItem);
+    }
+
+    @Override
     public boolean getLoginState() {
         return mDataManager.getLoginState();
     }

@@ -9,11 +9,10 @@ import android.widget.TextView;
 import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.LottieDrawable;
 import com.jthou.wanandroid.R;
-import com.jthou.wanandroid.app.Constant;
+import com.jthou.wanandroid.app.Constants;
 import com.jthou.wanandroid.base.presenter.BasePresenter;
 import com.jthou.wanandroid.model.annotation.State;
 import com.jthou.wanandroid.util.CommonUtils;
-import com.jthou.wanandroid.util.LogHelper;
 
 public abstract class ParentFragment<T extends BasePresenter> extends BaseFragment<T> {
 
@@ -62,9 +61,9 @@ public abstract class ParentFragment<T extends BasePresenter> extends BaseFragme
 
     @Override
     public void showLoading() {
-        if(mCurrentState == Constant.LOADING_STATE) return;
+        if(mCurrentState == Constants.LOADING_STATE) return;
         hideCurrentView(mCurrentState);
-        mCurrentState = Constant.LOADING_STATE;
+        mCurrentState = Constants.LOADING_STATE;
         mLoadingView.setVisibility(View.VISIBLE);
         mLottieAnimationView.setAnimation("loading_bus.json");
         mLottieAnimationView.setRepeatCount(LottieDrawable.INFINITE);
@@ -73,23 +72,21 @@ public abstract class ParentFragment<T extends BasePresenter> extends BaseFragme
 
     @Override
     public void showError() {
-        if (mCurrentState == Constant.ERROR_STATE) {
+        if (mCurrentState == Constants.ERROR_STATE) {
             return;
         }
         hideCurrentView(mCurrentState);
-        mCurrentState = Constant.ERROR_STATE;
+        mCurrentState = Constants.ERROR_STATE;
         mErrorView.setVisibility(View.VISIBLE);
-
-        LogHelper.e("showError所在fragment：" + getClass().getName());
     }
 
     @Override
     public void showNormal() {
-        if (mCurrentState == Constant.NORMAL_STATE) {
+        if (mCurrentState == Constants.NORMAL_STATE) {
             return;
         }
         hideCurrentView(mCurrentState);
-        mCurrentState = Constant.NORMAL_STATE;
+        mCurrentState = Constants.NORMAL_STATE;
         mNormalView.setVisibility(View.VISIBLE);
     }
 
@@ -100,17 +97,17 @@ public abstract class ParentFragment<T extends BasePresenter> extends BaseFragme
 
     private void hideCurrentView(@State int state) {
         switch (state) {
-            case Constant.NORMAL_STATE:
+            case Constants.NORMAL_STATE:
                 if (mNormalView == null) {
                     return;
                 }
                 mNormalView.setVisibility(View.INVISIBLE);
                 break;
-            case Constant.LOADING_STATE:
+            case Constants.LOADING_STATE:
                 mLottieAnimationView.cancelAnimation();
                 mLoadingView.setVisibility(View.GONE);
                 break;
-            case Constant.ERROR_STATE:
+            case Constants.ERROR_STATE:
                 mErrorView.setVisibility(View.GONE);
             default:
                 break;

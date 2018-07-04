@@ -54,7 +54,6 @@ public class CommonUtils {
      * @param msg message
      */
     public static void showSnackMessage(Activity activity, String msg) {
-        LogHelper.e("showSnackMessage ：" + msg);
         Snackbar snackbar = Snackbar.make(activity.getWindow().getDecorView(), msg, Snackbar.LENGTH_SHORT);
         View view = snackbar.getView();
         ((TextView) view.findViewById(R.id.snackbar_text)).setTextColor(ContextCompat.getColor(activity, android.R.color.white));

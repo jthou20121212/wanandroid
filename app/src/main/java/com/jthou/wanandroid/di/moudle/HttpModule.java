@@ -1,7 +1,7 @@
 package com.jthou.wanandroid.di.moudle;
 
 import com.jthou.wanandroid.BuildConfig;
-import com.jthou.wanandroid.app.Constant;
+import com.jthou.wanandroid.app.Constants;
 import com.jthou.wanandroid.model.api.WanAndroidApi;
 import com.jthou.wanandroid.model.network.CookiesManager;
 import com.jthou.wanandroid.util.CommonUtils;
@@ -61,7 +61,7 @@ public class HttpModule {
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
             builder.addInterceptor(loggingInterceptor);
         }
-        File cacheFile = new File(Constant.PATH_CACHE);
+        File cacheFile = new File(Constants.PATH_CACHE);
         Cache cache = new Cache(cacheFile, 1024 * 1024 * 50);
         Interceptor cacheInterceptor = chain -> {
             Request request = chain.request();

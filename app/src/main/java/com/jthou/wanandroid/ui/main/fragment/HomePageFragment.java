@@ -102,7 +102,7 @@ public class HomePageFragment extends ParentFragment<HomePagerPresenter> impleme
 
             @Override
             public void onPageSelected(int position) {
-                if(isDetached()) return;
+                if(!isAdded()) return;
                 if (mBannerData == null || mBannerData.isEmpty()) return;
                 int index = position % mBannerData.size();
                 mTvTitle.setText(mBannerData.get(index).getTitle());

@@ -6,7 +6,7 @@ import java.io.File;
  * Created by user on 2018/5/16.
  */
 
-public class Constant {
+public class Constants {
 
     public static final int NORMAL_STATE = 0;
     public static final int LOADING_STATE = 1;

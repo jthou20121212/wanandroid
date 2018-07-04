@@ -2,11 +2,11 @@ package com.jthou.wanandroid.model.annotation;
 
 import android.support.annotation.IntDef;
 
-import com.jthou.wanandroid.app.Constant;
+import com.jthou.wanandroid.app.Constants;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-@IntDef({Constant.NORMAL_STATE, Constant.LOADING_STATE, Constant.ERROR_STATE})
+@IntDef({Constants.NORMAL_STATE, Constants.LOADING_STATE, Constants.ERROR_STATE})
 @Retention(RetentionPolicy.SOURCE)
 public @interface State {}

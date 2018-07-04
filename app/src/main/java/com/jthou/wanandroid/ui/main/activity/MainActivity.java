@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -13,16 +12,15 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.jthou.wanandroid.R;
-import com.jthou.wanandroid.app.Constant;
+import com.jthou.wanandroid.app.Constants;
 import com.jthou.wanandroid.app.WanAndroidApp;
 import com.jthou.wanandroid.base.activity.BaseActivity;
-import com.jthou.wanandroid.base.fragment.BaseFragment;
+import com.jthou.wanandroid.base.fragment.ParentFragment;
 import com.jthou.wanandroid.contract.main.MainContract;
 import com.jthou.wanandroid.di.component.DaggerActivityComponent;
 import com.jthou.wanandroid.presenter.main.MainPresenter;
@@ -35,12 +33,11 @@ import com.jthou.wanandroid.ui.main.fragment.ProjectFragment;
 import com.jthou.wanandroid.ui.main.fragment.SearchFragment;
 import com.jthou.wanandroid.util.BottomNavigationViewHelper;
 import com.jthou.wanandroid.util.CommonUtils;
-import com.jthou.wanandroid.util.L;
-import com.jthou.wanandroid.util.LogHelper;
 import com.jthou.wanandroid.util.StatusBarUtil;
 
 import butterknife.BindView;
 import me.yokeyword.fragmentation.ISupportFragment;
+import me.yokeyword.fragmentation.SupportFragment;
 
 public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View, NavigationView.OnNavigationItemSelectedListener, MenuItem.OnMenuItemClickListener,
         BottomNavigationView.OnNavigationItemSelectedListener {
@@ -63,8 +60,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     private ISupportFragment mCurrentFragment;
 
-    private int mHideFragment = Constant.TYPE_MAIN_PAGER;
-    private int mShowFragment = Constant.TYPE_MAIN_PAGER;
+    private int mShowFragment = Constants.TYPE_MAIN_PAGER;
 
     @Override
     protected int resource() {
@@ -103,10 +99,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
         if (savedInstanceState == null)
             mPresenter.autoLogin();
-        else
+        else {
             mShowFragment = mPresenter.getCurrentItem();
+            mCurrentFragment = getTargetFragment(mShowFragment);
+        }
 
-        mDelegate.loadMultipleRootFragment(R.id.id_content, mShowFragment, mHomePageFragment, mKnowledgeHierarchyFragment, mNavigationFragment, mFavoriteFragment, mProjectFragment);
+        mDelegate.loadMultipleRootFragment(R.id.id_content, mShowFragment, mHomePageFragment, mKnowledgeHierarchyFragment, mNavigationFragment, mProjectFragment, mFavoriteFragment);
     }
 
     @Override
@@ -119,7 +117,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.id_search:
-                if(mSearchFragment == null)
+                if (mSearchFragment == null)
                     mSearchFragment = SearchFragment.newInstance();
                 mSearchFragment.show(getSupportFragmentManager(), SearchFragment.class.getName());
                 break;
@@ -137,18 +135,22 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             case R.id.tab_home_page:
                 mDelegate.showHideFragment(mHomePageFragment, mCurrentFragment);
                 mCurrentFragment = mHomePageFragment;
+                mPresenter.setCurrentItem(Constants.TYPE_MAIN_PAGER);
                 break;
             case R.id.tab_knowledge_hierarchy:
                 mDelegate.showHideFragment(mKnowledgeHierarchyFragment, mCurrentFragment);
                 mCurrentFragment = mKnowledgeHierarchyFragment;
+                mPresenter.setCurrentItem(Constants.TYPE_KNOWLEDGE);
                 break;
             case R.id.tab_navigation:
                 mDelegate.showHideFragment(mNavigationFragment, mCurrentFragment);
                 mCurrentFragment = mNavigationFragment;
+                mPresenter.setCurrentItem(Constants.TYPE_NAVIGATION);
                 break;
             case R.id.tab_project:
                 mDelegate.showHideFragment(mProjectFragment, mCurrentFragment);
                 mCurrentFragment = mProjectFragment;
+                mPresenter.setCurrentItem(Constants.TYPE_PROJECT);
                 break;
             default:
         }
@@ -172,6 +174,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 if (mPresenter.getLoginState()) {
                     mDelegate.showHideFragment(mHomePageFragment, mCurrentFragment);
                     mCurrentFragment = mHomePageFragment;
+                    mPresenter.setCurrentItem(Constants.TYPE_MAIN_PAGER);
                     mDrawerLayout.closeDrawers();
                     mBottomNavigationView.setVisibility(View.VISIBLE);
                     mBottomNavigationView.setSelectedItemId(R.id.tab_home_page);
@@ -186,8 +189,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 if (mPresenter.getLoginState()) {
                     mDelegate.showHideFragment(mFavoriteFragment, mCurrentFragment);
                     mCurrentFragment = mFavoriteFragment;
+                    mPresenter.setCurrentItem(Constants.TYPE_COLLECT);
                     mDrawerLayout.closeDrawers();
                     mBottomNavigationView.setVisibility(View.GONE);
+                    mPresenter.setCurrentItem(4);
                 } else {
                     Intent it = new Intent(this, LoginActivity.class);
                     startActivity(it);
@@ -209,12 +214,27 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     public void showUsername(String username) {
         if (TextUtils.isEmpty(username)) return;
         mNavigationView.getMenu().findItem(R.id.id_menu_login).setTitle(username);
-        // mNavigationView.getMenu().findItem(R.id.id_menu_login).setOnMenuItemClickListener(null);
     }
 
     @Override
     public void showAutoLogin() {
         CommonUtils.showSnackMessage(this, getString(R.string.auto_login_success));
+    }
+
+    private ParentFragment getTargetFragment(int item) {
+        switch (item) {
+            case Constants.TYPE_MAIN_PAGER:
+                return mHomePageFragment;
+            case Constants.TYPE_KNOWLEDGE:
+                return mKnowledgeHierarchyFragment;
+            case Constants.TYPE_NAVIGATION:
+                return mNavigationFragment;
+            case Constants.TYPE_PROJECT:
+                return mProjectFragment;
+            case Constants.TYPE_COLLECT:
+                return mFavoriteFragment;
+        }
+        return mHomePageFragment;
     }
 
 }
