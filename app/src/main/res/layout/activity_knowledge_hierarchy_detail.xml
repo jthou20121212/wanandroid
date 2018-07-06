@@ -5,6 +5,7 @@
     android:layout_height="match_parent">
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/id_appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
@@ -12,7 +13,7 @@
         app:elevation="@dimen/dp_0">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/id_toolbar"
             android:layout_width="match_parent"
             android:layout_height="54dp"
             android:background="?attr/colorPrimaryDark"
@@ -20,5 +21,57 @@
             app:titleTextColor="@android:color/white" />
 
     </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/behavior_appbar_layout">
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/id_tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            app:tabBackground="@android:color/white"
+            app:tabGravity="center"
+            app:tabIndicatorColor="@color/colorPrimary"
+            app:tabIndicatorHeight="3dp"
+            app:tabMode="scrollable"
+            app:tabSelectedTextColor="@color/colorPrimary"
+            app:tabTextColor="@color/gray_666" />
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/id_smartRefreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@color/colorPrimary"
+            app:layout_constraintTop_toBottomOf="@id/id_tabLayout">
+
+            <!--<com.scwang.smartrefresh.header.DropBoxHeader-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content" />-->
+
+            <com.scwang.smartrefresh.header.DeliveryHeader
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <!--<com.scwang.smartrefresh.header.PhoenixHeader-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content" />-->
+
+            <!--<com.scwang.smartrefresh.header.StoreHouseHeader-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content" />-->
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/id_recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white" />
+
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

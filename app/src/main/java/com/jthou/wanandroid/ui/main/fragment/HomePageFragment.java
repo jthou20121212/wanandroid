@@ -144,10 +144,10 @@ public class HomePageFragment extends ParentFragment<HomePagerPresenter> impleme
         showNormal();
 
         mRefreshLayout.finishLoadMore();
-        // int size = mData.size();
-        mData.addAll(data);
-        // mAdapter.notifyItemRangeInserted(size, data.size());
-        mAdapter.notifyDataSetChanged();
+        if (mCurrentPage == 0)
+            mAdapter.replaceData(data);
+        else
+            mAdapter.addData(data);
     }
 
     @Override
@@ -194,7 +194,7 @@ public class HomePageFragment extends ParentFragment<HomePagerPresenter> impleme
 
     @Override
     public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-        mPresenter.getArticleList(mCurrentPage++);
+        mPresenter.getArticleList(++mCurrentPage);
     }
 
     @Override

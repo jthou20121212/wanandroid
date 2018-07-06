@@ -15,7 +15,7 @@ import io.reactivex.Observable;
 public interface HttpHelper {
 
     // 获取文章列表
-    Observable<AbstractResponse<BaseResponse<Article>>> getArticleList(int pageNum);
+    Observable<AbstractResponse<BaseResponse<Article>>> getKnowledgeHierarchyArticleList(int pageNum);
 
     // 获取banner数据
     Observable<AbstractResponse<List<Banner>>> getBannerData();
@@ -25,6 +25,9 @@ public interface HttpHelper {
 
     // 获取体系列表
     Observable<AbstractResponse<List<KnowledgeHierarchy>>> getKnowledgeHierarchyList();
+
+    // 获取体系下文章列表
+    Observable<AbstractResponse<BaseResponse<Article>>> getKnowledgeHierarchyArticleList(int page, int cid);
 
     // 获取收藏文章列表
     Observable<AbstractResponse<BaseResponse<Article>>> getFavoriteArticleList(int page);

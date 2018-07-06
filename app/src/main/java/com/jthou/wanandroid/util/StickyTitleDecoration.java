@@ -114,7 +114,7 @@ public class StickyTitleDecoration extends RecyclerView.ItemDecoration {
             throw new NullPointerException("gridLayoutManager not allow null");
         }
         final int spanCount = gridLayoutManager.getSpanCount();
-        GridLayoutManager.SpanSizeLookup lookup = new GridLayoutManager.SpanSizeLookup() {//相当于weight
+        GridLayoutManager.SpanSizeLookup lookup = new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
                 int span;

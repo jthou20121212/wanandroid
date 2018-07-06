@@ -1,6 +1,5 @@
 package com.jthou.wanandroid.ui.main.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
@@ -11,15 +10,12 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.jthou.wanandroid.R;
-import com.jthou.wanandroid.app.Key;
 import com.jthou.wanandroid.app.WanAndroidApp;
 import com.jthou.wanandroid.base.fragment.ParentFragment;
 import com.jthou.wanandroid.contract.main.NavigationContract;
 import com.jthou.wanandroid.di.component.DaggerFragmentComponent;
-import com.jthou.wanandroid.model.entity.Article;
 import com.jthou.wanandroid.model.entity.Navigation;
 import com.jthou.wanandroid.presenter.main.NavigationPresenter;
-import com.jthou.wanandroid.ui.main.activity.ArticleDetailActivity;
 import com.jthou.wanandroid.ui.main.adapter.LeftAdapter;
 import com.jthou.wanandroid.ui.main.adapter.RightAdapter;
 import com.jthou.wanandroid.util.ItemClickSupport;
@@ -44,7 +40,7 @@ public class NavigationFragment extends ParentFragment<NavigationPresenter> impl
     private RightAdapter mRightAdapter;
 
     private RecyclerView.LayoutManager mLeftLayoutManager;
-    private GridLayoutManager mRightLayoutManager;
+    private LinearLayoutManager mRightLayoutManager;
 
     private int mTargetPosition = -1;
 
@@ -89,7 +85,7 @@ public class NavigationFragment extends ParentFragment<NavigationPresenter> impl
         mRightData = new ArrayList<>();
         mRightAdapter = new RightAdapter(_mActivity, mRightData);
         mRightRecyclerView.setAdapter(mRightAdapter);
-        mRightLayoutManager = new GridLayoutManager(_mActivity, 3);
+        mRightLayoutManager = new LinearLayoutManager(_mActivity);
         mRightRecyclerView.setLayoutManager(mRightLayoutManager);
         mRightRecyclerView.addOnScrollListener(mRightOnScrollListener);
         StickyTitleDecoration stickyDecoration = new StickyTitleDecoration(new StickyTitleDecoration.GroupNameCallback() {
@@ -113,7 +109,7 @@ public class NavigationFragment extends ParentFragment<NavigationPresenter> impl
             }
 
         });
-        stickyDecoration.resetSpan(mRightRecyclerView, mRightLayoutManager);
+        // stickyDecoration.resetSpan(mRightRecyclerView, mRightLayoutManager);
         mRightRecyclerView.addItemDecoration(stickyDecoration);
 
         ItemClickSupport.addTo(mLeftRecyclerView).setOnItemClickListener(this);
@@ -151,12 +147,6 @@ public class NavigationFragment extends ParentFragment<NavigationPresenter> impl
                     mRightRecyclerView.scrollToPosition(rightPosition);
                     mTargetPosition = rightPosition;
                 }
-                break;
-            case R.id.id_recycleView_right:
-//                Intent intent = new Intent(_mActivity, ArticleDetailActivity.class);
-//                intent.putExtra(Key.ARTICLE_LINK, mRightData.get(position).getLink());
-//                intent.putExtra(Key.ARTICLE_TITLE, mRightData.get(position).getTitle());
-//                startActivity(intent);
                 break;
             default:
         }

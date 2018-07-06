@@ -32,8 +32,8 @@ public class DataManager implements DbHelper, HttpHelper, PreferenceHelper {
     }
 
     @Override
-    public Observable<AbstractResponse<BaseResponse<Article>>> getArticleList(int pageNum) {
-        return mHttpHelper.getArticleList(pageNum);
+    public Observable<AbstractResponse<BaseResponse<Article>>> getKnowledgeHierarchyArticleList(int pageNum) {
+        return mHttpHelper.getKnowledgeHierarchyArticleList(pageNum);
     }
 
     @Override
@@ -49,6 +49,11 @@ public class DataManager implements DbHelper, HttpHelper, PreferenceHelper {
     @Override
     public Observable<AbstractResponse<List<KnowledgeHierarchy>>> getKnowledgeHierarchyList() {
         return mHttpHelper.getKnowledgeHierarchyList();
+    }
+
+    @Override
+    public Observable<AbstractResponse<BaseResponse<Article>>> getKnowledgeHierarchyArticleList(int page, int cid) {
+        return mHttpHelper.getKnowledgeHierarchyArticleList(page, cid);
     }
 
     @Override

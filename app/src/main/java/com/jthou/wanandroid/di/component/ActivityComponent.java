@@ -1,5 +1,6 @@
 package com.jthou.wanandroid.di.component;
 
+import com.jthou.wanandroid.ui.main.activity.KnowledgeHierarchyDetailActivity;
 import com.jthou.wanandroid.ui.main.activity.MainActivity;
 import com.jthou.wanandroid.di.scope.ActivityScope;
 import com.jthou.wanandroid.ui.login.LoginActivity;
@@ -19,5 +20,7 @@ public interface ActivityComponent {
     void inject(MainActivity activity);
 
     void inject(WelcomeActivity activity);
+
+    void inject(KnowledgeHierarchyDetailActivity activity);
 
 }

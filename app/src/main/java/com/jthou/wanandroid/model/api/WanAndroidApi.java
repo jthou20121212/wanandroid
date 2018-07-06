@@ -17,6 +17,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -60,4 +61,6 @@ public interface WanAndroidApi {
     @FormUrlEncoded
     Observable<AbstractResponse<BaseResponse<Article>>> getSearchList(@Path("page") int page, @Query("k") String keyword);
 
+    @GET("article/list/{page}/json")
+    Observable<AbstractResponse<BaseResponse<Article>>> getKnowledgeHierarchyArticleList(@Path("page") int page, @Query("cid") int cid);
 }

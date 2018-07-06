@@ -20,7 +20,7 @@ public class HomePagerPresenter extends ParentPresenter<HomePageContract.View> i
 
     @Override
     public void getArticleList(int page) {
-        addSubscribe(mDataManager.getArticleList(page)
+        addSubscribe(mDataManager.getKnowledgeHierarchyArticleList(page)
                 .compose(RxUtil.schedulerHelper())
                 .compose(RxUtil.handleResponse())
                 .subscribe(articles -> mView.showArticleList(articles.getDatas())));

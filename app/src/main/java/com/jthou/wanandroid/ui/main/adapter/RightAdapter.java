@@ -51,15 +51,12 @@ public class RightAdapter extends RecyclerView.Adapter<RightAdapter.ClassifyHold
                 return textView;
             }
         });
-        flowLayout.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
-            @Override
-            public boolean onTagClick(View view, int position, FlowLayout parent) {
-                Intent intent = new Intent(mContext, ArticleDetailActivity.class);
-                intent.putExtra(Key.ARTICLE_LINK, articles.get(position).getLink());
-                intent.putExtra(Key.ARTICLE_TITLE, articles.get(position).getTitle());
-                mContext.startActivity(intent);
-                return true;
-            }
+        flowLayout.setOnTagClickListener((view, index, parent) -> {
+            Intent intent = new Intent(mContext, ArticleDetailActivity.class);
+            intent.putExtra(Key.ARTICLE_LINK, articles.get(index).getLink());
+            intent.putExtra(Key.ARTICLE_TITLE, articles.get(index).getTitle());
+            mContext.startActivity(intent);
+            return true;
         });
     }
 

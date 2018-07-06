@@ -25,7 +25,7 @@ public class RetrofitHelper implements HttpHelper {
     }
 
     @Override
-    public Observable<AbstractResponse<BaseResponse<Article>>> getArticleList(int pageNum) {
+    public Observable<AbstractResponse<BaseResponse<Article>>> getKnowledgeHierarchyArticleList(int pageNum) {
         return mWanAndroidApi.getArticleList(pageNum);
     }
 
@@ -42,6 +42,11 @@ public class RetrofitHelper implements HttpHelper {
     @Override
     public Observable<AbstractResponse<List<KnowledgeHierarchy>>> getKnowledgeHierarchyList() {
         return mWanAndroidApi.getKnowledgeHierarchyList();
+    }
+
+    @Override
+    public Observable<AbstractResponse<BaseResponse<Article>>> getKnowledgeHierarchyArticleList(int page, int cid) {
+        return mWanAndroidApi.getKnowledgeHierarchyArticleList(page, cid);
     }
 
     @Override
