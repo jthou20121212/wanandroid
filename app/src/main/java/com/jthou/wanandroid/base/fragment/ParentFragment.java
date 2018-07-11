@@ -17,13 +17,16 @@ import com.jthou.wanandroid.util.CommonUtils;
 public abstract class ParentFragment<T extends BasePresenter> extends BaseFragment<T> {
 
     private View mErrorView;
-    public View mNormalView;
+    private View mNormalView;
     private View mLoadingView;
 
     private LottieAnimationView mLottieAnimationView;
 
     @State
     private int mCurrentState;
+
+    public ParentFragment() {
+    }
 
     @Override
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {

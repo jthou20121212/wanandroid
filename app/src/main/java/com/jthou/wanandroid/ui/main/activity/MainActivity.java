@@ -5,11 +5,14 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -19,10 +22,13 @@ import android.view.View;
 import com.jthou.wanandroid.R;
 import com.jthou.wanandroid.app.Constants;
 import com.jthou.wanandroid.app.WanAndroidApp;
+import com.jthou.wanandroid.base.BaseView;
 import com.jthou.wanandroid.base.activity.BaseActivity;
 import com.jthou.wanandroid.base.fragment.ParentFragment;
+import com.jthou.wanandroid.base.presenter.ParentPresenter;
 import com.jthou.wanandroid.contract.main.MainContract;
 import com.jthou.wanandroid.di.component.DaggerActivityComponent;
+import com.jthou.wanandroid.model.entity.NightModeEvent;
 import com.jthou.wanandroid.presenter.main.MainPresenter;
 import com.jthou.wanandroid.ui.login.LoginActivity;
 import com.jthou.wanandroid.ui.main.fragment.FavoriteFragment;
@@ -31,16 +37,18 @@ import com.jthou.wanandroid.ui.main.fragment.KnowledgeHierarchyFragment;
 import com.jthou.wanandroid.ui.main.fragment.NavigationFragment;
 import com.jthou.wanandroid.ui.main.fragment.ProjectFragment;
 import com.jthou.wanandroid.ui.main.fragment.SearchFragment;
+import com.jthou.wanandroid.ui.main.fragment.SettingFragment;
 import com.jthou.wanandroid.util.BottomNavigationViewHelper;
 import com.jthou.wanandroid.util.CommonUtils;
+import com.jthou.wanandroid.util.LogHelper;
 import com.jthou.wanandroid.util.StatusBarUtil;
 
 import butterknife.BindView;
 import me.yokeyword.fragmentation.ISupportFragment;
 import me.yokeyword.fragmentation.SupportFragment;
 
-public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View, NavigationView.OnNavigationItemSelectedListener, MenuItem.OnMenuItemClickListener,
-        BottomNavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View, NavigationView.OnNavigationItemSelectedListener,
+        MenuItem.OnMenuItemClickListener, BottomNavigationView.OnNavigationItemSelectedListener {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -57,8 +65,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     private NavigationFragment mNavigationFragment;
     private ProjectFragment mProjectFragment;
     private SearchFragment mSearchFragment;
+    private SettingFragment mSettingFragment;
 
-    private ISupportFragment mCurrentFragment;
+    private ParentFragment mCurrentFragment;
 
     private int mShowFragment = Constants.TYPE_MAIN_PAGER;
 
@@ -78,8 +87,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         actionBar.setDisplayShowHomeEnabled(true);
         StatusBarUtil.setStatusColor(getWindow(), ContextCompat.getColor(this, R.color.colorPrimary), 1f);
 
-        ActionBarDrawerToggle actionBarDrawerToggle =
-                new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.syncState();
 
@@ -96,15 +104,20 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mNavigationFragment = NavigationFragment.newInstance();
         mFavoriteFragment = FavoriteFragment.newInstance();
         mProjectFragment = ProjectFragment.newInstance();
+        mSettingFragment = SettingFragment.newInstance();
 
-        if (savedInstanceState == null)
-            mPresenter.autoLogin();
-        else {
+        if (savedInstanceState == null) {
+            mPresenter.setNightModeState(false);
+        } else {
             mShowFragment = mPresenter.getCurrentItem();
             mCurrentFragment = getTargetFragment(mShowFragment);
+            if(mShowFragment > Constants.TYPE_PROJECT)
+                mBottomNavigationView.setVisibility(View.INVISIBLE);
         }
 
-        mDelegate.loadMultipleRootFragment(R.id.id_content, mShowFragment, mHomePageFragment, mKnowledgeHierarchyFragment, mNavigationFragment, mProjectFragment, mFavoriteFragment);
+        mPresenter.autoLogin();
+
+        mDelegate.loadMultipleRootFragment(R.id.id_content, mShowFragment, mHomePageFragment, mKnowledgeHierarchyFragment, mNavigationFragment, mProjectFragment, mFavoriteFragment, mSettingFragment);
     }
 
     @Override
@@ -133,7 +146,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         final int id = item.getItemId();
         switch (id) {
             case R.id.tab_home_page:
-                mDelegate.showHideFragment(mHomePageFragment, mCurrentFragment);
+                // mDelegate.showHideFragment(mHomePageFragment, mCurrentFragment);
+                mDelegate.showHideFragment(mHomePageFragment);
                 mCurrentFragment = mHomePageFragment;
                 mPresenter.setCurrentItem(Constants.TYPE_MAIN_PAGER);
                 break;
@@ -163,7 +177,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             mDrawerLayout.closeDrawer(GravityCompat.START);
             return;
         }
-        super.onBackPressedSupport();
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        startActivity(intent);
     }
 
     @Override
@@ -172,9 +188,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         switch (id) {
             case R.id.id_menu_login:
                 if (mPresenter.getLoginState()) {
-                    mDelegate.showHideFragment(mHomePageFragment, mCurrentFragment);
-                    mCurrentFragment = mHomePageFragment;
-                    mPresenter.setCurrentItem(Constants.TYPE_MAIN_PAGER);
                     mDrawerLayout.closeDrawers();
                     mBottomNavigationView.setVisibility(View.VISIBLE);
                     mBottomNavigationView.setSelectedItemId(R.id.tab_home_page);
@@ -184,6 +197,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 }
                 break;
             case R.id.id_menu_about:
+                mDelegate.showHideFragment(mSettingFragment, mCurrentFragment);
+                mCurrentFragment = mSettingFragment;
+                mPresenter.setCurrentItem(Constants.TYPE_SETTING);
+                mDrawerLayout.closeDrawers();
+                mBottomNavigationView.setVisibility(View.INVISIBLE);
                 break;
             case R.id.id_menu_favorite:
                 if (mPresenter.getLoginState()) {
@@ -191,8 +209,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                     mCurrentFragment = mFavoriteFragment;
                     mPresenter.setCurrentItem(Constants.TYPE_COLLECT);
                     mDrawerLayout.closeDrawers();
-                    mBottomNavigationView.setVisibility(View.GONE);
-                    mPresenter.setCurrentItem(4);
+                    mBottomNavigationView.setVisibility(View.INVISIBLE);
                 } else {
                     Intent it = new Intent(this, LoginActivity.class);
                     startActivity(it);
@@ -221,7 +238,17 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         CommonUtils.showSnackMessage(this, getString(R.string.auto_login_success));
     }
 
-    private ParentFragment getTargetFragment(int item) {
+    @Override
+    public void switchNightMode(boolean nightMode) {
+        if (nightMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+        recreate();
+    }
+
+    private ParentFragment<? extends ParentPresenter<? extends BaseView>> getTargetFragment(int item) {
         switch (item) {
             case Constants.TYPE_MAIN_PAGER:
                 return mHomePageFragment;
@@ -233,6 +260,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 return mProjectFragment;
             case Constants.TYPE_COLLECT:
                 return mFavoriteFragment;
+            case Constants.TYPE_SETTING:
+                return mSettingFragment;
         }
         return mHomePageFragment;
     }

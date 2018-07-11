@@ -7,6 +7,7 @@ import com.jthou.wanandroid.ui.main.fragment.KnowledgeHierarchyFragment;
 import com.jthou.wanandroid.ui.main.fragment.NavigationFragment;
 import com.jthou.wanandroid.ui.main.fragment.ProjectFragment;
 import com.jthou.wanandroid.ui.main.fragment.SearchFragment;
+import com.jthou.wanandroid.ui.main.fragment.SettingFragment;
 
 import dagger.Component;
 
@@ -25,5 +26,7 @@ public interface FragmentComponent {
     void inject(ProjectFragment fragment);
 
     void inject(SearchFragment fragment);
+
+    void inject(SettingFragment fragment);
 
 }

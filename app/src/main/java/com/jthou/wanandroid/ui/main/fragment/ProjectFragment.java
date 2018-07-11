@@ -70,8 +70,6 @@ public class ProjectFragment extends ParentFragment<ProjectPresenter> implements
             mSmartRefreshLayout.finishLoadMore();
         }
         showNormal();
-
-        LogHelper.e("showProjectList");
     }
 
     @Override

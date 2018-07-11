@@ -50,7 +50,6 @@ public class LeftAdapter extends RecyclerView.Adapter<LeftAdapter.SortHolder> {
         return mData.size();
     }
 
-
     public void setSelectPosition(int position) {
         mSelectPosition = position;
         notifyDataSetChanged();

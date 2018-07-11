@@ -57,8 +57,8 @@ public class StickyTitleDecoration extends RecyclerView.ItemDecoration {
         if (mGroupNameCallback == null) return;
         int position = parent.getChildAdapterPosition(view);
         String groupName = mGroupNameCallback.getGroupName(position);
-        int spanCount = ((GridLayoutManager) parent.getLayoutManager()).getSpanCount();
-        if (isFirstLineInGroup(position, spanCount) && groupName != null) {
+        // int spanCount = ((GridLayoutManager) parent.getLayoutManager()).getSpanCount();
+        if (isFirstLineInGroup(position, 1) && groupName != null) {
             //新group的第一行都需要留出空间
             outRect.top = mGroupHeight; //为悬浮view预留空间
         }

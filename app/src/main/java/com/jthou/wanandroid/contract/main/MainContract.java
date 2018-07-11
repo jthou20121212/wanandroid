@@ -4,6 +4,7 @@ import com.jthou.wanandroid.base.BaseView;
 import com.jthou.wanandroid.base.presenter.BasePresenter;
 import com.jthou.wanandroid.model.entity.Article;
 import com.jthou.wanandroid.model.entity.Banner;
+import com.jthou.wanandroid.model.entity.NightModeEvent;
 
 import java.util.List;
 
@@ -18,6 +19,8 @@ public interface MainContract {
         void showUsername(String username);
 
         void showAutoLogin();
+
+        void switchNightMode(boolean nightMode);
     }
 
     interface Presenter extends BasePresenter<View> {
@@ -32,6 +35,9 @@ public interface MainContract {
 
         void setCurrentItem(int currentItem);
 
+        boolean getNightModeState();
+
+        void setNightModeState(boolean nightModeState);
     }
 
 }

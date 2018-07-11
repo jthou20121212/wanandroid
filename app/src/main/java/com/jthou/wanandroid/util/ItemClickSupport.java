@@ -14,7 +14,9 @@ public class ItemClickSupport {
     private View.OnClickListener mOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            L.e("onClick 1");
             if (mOnItemClickListener != null) {
+                L.e("onClick 2");
                 RecyclerView.ViewHolder holder = mRecyclerView.getChildViewHolder(v);
                 mOnItemClickListener.onItemClicked(mRecyclerView, holder.getAdapterPosition(), v);
             }

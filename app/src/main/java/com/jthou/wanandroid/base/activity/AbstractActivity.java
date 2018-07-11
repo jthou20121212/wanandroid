@@ -16,7 +16,7 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator;
 
 public class AbstractActivity extends AppCompatActivity implements ISupportActivity {
 
-    public final SupportActivityDelegate mDelegate = new SupportActivityDelegate(this);
+    protected final SupportActivityDelegate mDelegate = new SupportActivityDelegate(this);
 
     @Override
     public SupportActivityDelegate getSupportDelegate() {

@@ -19,6 +19,7 @@ import com.jthou.wanandroid.presenter.main.NavigationPresenter;
 import com.jthou.wanandroid.ui.main.adapter.LeftAdapter;
 import com.jthou.wanandroid.ui.main.adapter.RightAdapter;
 import com.jthou.wanandroid.util.ItemClickSupport;
+import com.jthou.wanandroid.util.L;
 import com.jthou.wanandroid.util.StickyTitleDecoration;
 
 import java.util.ArrayList;
@@ -120,6 +121,7 @@ public class NavigationFragment extends ParentFragment<NavigationPresenter> impl
 
     @Override
     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+        L.e("onItemClicked");
         final int id = recyclerView.getId();
         switch (id) {
             case R.id.id_recycleView_left:

@@ -7,6 +7,7 @@ import com.jthou.wanandroid.base.presenter.ParentPresenter;
 import com.jthou.wanandroid.contract.main.MainContract;
 import com.jthou.wanandroid.model.DataManager;
 import com.jthou.wanandroid.model.entity.LoginInfo;
+import com.jthou.wanandroid.model.entity.NightModeEvent;
 import com.jthou.wanandroid.model.event.LoginEvent;
 import com.jthou.wanandroid.util.RxBus;
 import com.jthou.wanandroid.util.RxUtil;
@@ -36,8 +37,11 @@ public class MainPresenter extends ParentPresenter<MainContract.View> implements
 
     private void registerEvent() {
         addSubscribe(RxBus.getDefault().toFlowable(LoginEvent.class).subscribe(loginEvent -> getUsername()));
+
+        addSubscribe(RxBus.getDefault().toFlowable(NightModeEvent.class).subscribe(nightModeEvent -> mView.switchNightMode(nightModeEvent.getNightMode())));
     }
 
+    @Override
     public void autoLogin() {
         String username = mDataManager.getUsername();
         String password = mDataManager.getPassword();
@@ -62,6 +66,16 @@ public class MainPresenter extends ParentPresenter<MainContract.View> implements
     @Override
     public void setCurrentItem(int currentItem) {
         mDataManager.saveCurrentItem(currentItem);
+    }
+
+    @Override
+    public boolean getNightModeState() {
+        return mDataManager.nightMode();
+    }
+
+    @Override
+    public void setNightModeState(boolean nightModeState) {
+        mDataManager.setNightMode(nightModeState);
     }
 
     @Override
