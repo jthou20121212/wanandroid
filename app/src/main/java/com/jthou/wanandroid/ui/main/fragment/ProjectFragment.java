@@ -1,22 +1,24 @@
 package com.jthou.wanandroid.ui.main.fragment;
 
-import android.os.Bundle;
+import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jthou.wanandroid.R;
-import com.jthou.wanandroid.app.WanAndroidApp;
+import com.jthou.wanandroid.app.Key;
 import com.jthou.wanandroid.base.fragment.ParentFragment;
 import com.jthou.wanandroid.contract.main.ProjectContract;
-import com.jthou.wanandroid.di.component.DaggerFragmentComponent;
 import com.jthou.wanandroid.model.entity.Article;
+import com.jthou.wanandroid.model.entity.CollectEvent;
 import com.jthou.wanandroid.model.entity.ProjectClassify;
 import com.jthou.wanandroid.presenter.main.ProjectPresenter;
+import com.jthou.wanandroid.ui.main.activity.ArticleDetailActivity;
 import com.jthou.wanandroid.ui.main.adapter.ProjectListAdapter;
+import com.jthou.wanandroid.util.ItemClickSupport;
 import com.jthou.wanandroid.util.LogHelper;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -28,7 +30,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class ProjectFragment extends ParentFragment<ProjectPresenter> implements ProjectContract.View, TabLayout.OnTabSelectedListener, OnRefreshListener, OnLoadMoreListener {
+public class ProjectFragment extends ParentFragment<ProjectPresenter> implements ProjectContract.View, TabLayout.OnTabSelectedListener, OnRefreshListener, OnLoadMoreListener, ItemClickSupport.OnItemClickListener {
 
     @BindView(R.id.id_tabLayout)
     TabLayout mTabLayout;
@@ -43,11 +45,7 @@ public class ProjectFragment extends ParentFragment<ProjectPresenter> implements
     private List<Article> mData;
     private BaseQuickAdapter mAdapter;
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        DaggerFragmentComponent.builder().appComponent(WanAndroidApp.getAppComponent()).build().inject(this);
-        super.onCreate(savedInstanceState);
-    }
+    private int mPosition = -1;
 
     @Override
     public void showProjectClassify(List<ProjectClassify> projectClassifyList) {
@@ -73,6 +71,16 @@ public class ProjectFragment extends ParentFragment<ProjectPresenter> implements
     }
 
     @Override
+    public void refreshCollectState(CollectEvent event) {
+        if(mPosition == -1 || mPosition >= mData.size()) return;
+        Article article = mData.get(mPosition);
+        boolean collect = article.isCollect();
+        if (collect == event.isCollect()) return;
+        article.setCollect(event.isCollect());
+        mAdapter.setData(mPosition, article);
+    }
+
+    @Override
     protected int resource() {
         return R.layout.fragment_project;
     }
@@ -88,6 +96,7 @@ public class ProjectFragment extends ParentFragment<ProjectPresenter> implements
         mAdapter = new ProjectListAdapter(R.layout.item_project_list, mData);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(_mActivity));
+        ItemClickSupport.addTo(mRecyclerView).setOnItemClickListener(this);
     }
 
     @Override
@@ -127,12 +136,21 @@ public class ProjectFragment extends ParentFragment<ProjectPresenter> implements
     public void reload() {
         showLoading();
         mPresenter.getProjectList(mCurrentPage, mCurrentProjectClassify.getId());
-
-        LogHelper.e("reload");
     }
 
     public static ProjectFragment newInstance() {
         return new ProjectFragment();
+    }
+
+    @Override
+    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+        Intent intent = new Intent(_mActivity, ArticleDetailActivity.class);
+        Article article = mData.get(mPosition = position);
+        intent.putExtra(Key.ARTICLE_LINK, article.getLink());
+        intent.putExtra(Key.ARTICLE_TITLE, article.getTitle());
+        intent.putExtra(Key.ARTICLE_ID, article.getId());
+        intent.putExtra(Key.ARTICLE_IS_FAVORITE, article.isCollect());
+        startActivity(intent);
     }
 
 }

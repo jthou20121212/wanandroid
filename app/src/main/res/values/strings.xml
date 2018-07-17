@@ -45,6 +45,7 @@
     <string name="bye_burger_bottom_behavior">com.wingsofts.byeburgernavigationview.ByeBurgerBottomBehavior</string>
 
     <string name="index_count">%1$d/%2$d</string>
+    <string name="chapter_name">%1$s/%2$s</string>
 
     <string name="setting_cache">自动缓存</string>
     <string name="setting_image">无图模式</string>
@@ -54,5 +55,9 @@
     <string name="setting_update">检查更新</string>
     <string name="setting_normal">常规</string>
     <string name="setting_other">其他</string>
+    <string name="collect_success">收藏成功</string>
+    <string name="collect_failure">收藏失败</string>
+    <string name="cancel_collect_success">取消收藏成功</string>
+    <string name="cancel_collect_failure">取消收藏失败</string>
 
 </resources>

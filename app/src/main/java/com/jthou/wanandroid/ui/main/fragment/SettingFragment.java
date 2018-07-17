@@ -2,8 +2,6 @@ package com.jthou.wanandroid.ui.main.fragment;
 
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
@@ -11,10 +9,8 @@ import android.widget.TextView;
 
 import com.jthou.wanandroid.R;
 import com.jthou.wanandroid.app.Constants;
-import com.jthou.wanandroid.app.WanAndroidApp;
 import com.jthou.wanandroid.base.fragment.ParentFragment;
 import com.jthou.wanandroid.contract.main.SettingContract;
-import com.jthou.wanandroid.di.component.DaggerFragmentComponent;
 import com.jthou.wanandroid.model.entity.NightModeEvent;
 import com.jthou.wanandroid.presenter.main.SettingPresenter;
 import com.jthou.wanandroid.util.RxBus;
@@ -46,12 +42,6 @@ public class SettingFragment extends ParentFragment<SettingPresenter> implements
 
     private File cacheFile;
     private String versionName;
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        DaggerFragmentComponent.builder().appComponent(WanAndroidApp.getAppComponent()).build().inject(this);
-    }
 
     public SettingFragment() {
     }

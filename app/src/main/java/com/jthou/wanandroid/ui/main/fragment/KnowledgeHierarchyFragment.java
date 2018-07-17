@@ -1,9 +1,7 @@
 package com.jthou.wanandroid.ui.main.fragment;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -11,16 +9,13 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jthou.wanandroid.R;
 import com.jthou.wanandroid.app.Constants;
-import com.jthou.wanandroid.app.WanAndroidApp;
 import com.jthou.wanandroid.base.fragment.ParentFragment;
 import com.jthou.wanandroid.contract.main.KnowledgeHierarchyContract;
-import com.jthou.wanandroid.di.component.DaggerFragmentComponent;
 import com.jthou.wanandroid.model.entity.KnowledgeHierarchy;
 import com.jthou.wanandroid.presenter.main.KnowledgeHierarchyPresenter;
 import com.jthou.wanandroid.ui.main.activity.KnowledgeHierarchyDetailActivity;
 import com.jthou.wanandroid.ui.main.adapter.KnowledgeHierarchyAdapter;
 import com.jthou.wanandroid.util.ItemClickSupport;
-import com.jthou.wanandroid.util.LogHelper;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -44,12 +39,6 @@ public class KnowledgeHierarchyFragment extends ParentFragment<KnowledgeHierarch
 
     public static KnowledgeHierarchyFragment newInstance() {
         return new KnowledgeHierarchyFragment();
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        DaggerFragmentComponent.builder().appComponent(WanAndroidApp.getAppComponent()).build().inject(this);
-        super.onCreate(savedInstanceState);
     }
 
     @Override

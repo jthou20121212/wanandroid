@@ -1,6 +1,7 @@
 package com.jthou.wanandroid.base.activity;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 
 import com.jthou.wanandroid.base.presenter.BasePresenter;
 import com.jthou.wanandroid.base.BaseView;
@@ -13,19 +14,34 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import dagger.android.AndroidInjection;
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.support.HasSupportFragmentInjector;
 
-public abstract class BaseActivity<T extends BasePresenter> extends AbstractActivity implements BaseView {
+public abstract class BaseActivity<T extends BasePresenter> extends AbstractActivity implements
+        BaseView, HasSupportFragmentInjector {
 
     private Unbinder mUnbinder;
 
     @Inject
     protected T mPresenter;
 
+    @Inject
+    DispatchingAndroidInjector<Fragment> mFragmentDispatchingAndroidInjector;
+
+    @Override
+    public AndroidInjector<Fragment> supportFragmentInjector() {
+        return mFragmentDispatchingAndroidInjector;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AndroidInjection.inject(this);
         super.onCreate(savedInstanceState);
-        ActivityContainer.getInstance().addActivity(this);
         L.e("Activity : " + getClass().getName());
+
+        ActivityContainer.getInstance().addActivity(this);
 
         if (resource() != 0) {
             setContentView(resource());

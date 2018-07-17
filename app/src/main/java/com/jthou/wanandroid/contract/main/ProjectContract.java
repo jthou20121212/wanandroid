@@ -3,6 +3,7 @@ package com.jthou.wanandroid.contract.main;
 import com.jthou.wanandroid.base.BaseView;
 import com.jthou.wanandroid.base.presenter.BasePresenter;
 import com.jthou.wanandroid.model.entity.Article;
+import com.jthou.wanandroid.model.entity.CollectEvent;
 import com.jthou.wanandroid.model.entity.ProjectClassify;
 
 import java.util.List;
@@ -18,6 +19,8 @@ public interface ProjectContract {
         void showProjectClassify(List<ProjectClassify> projectClassifyList);
 
         void showProjectList(List<Article> articleList);
+
+        void refreshCollectState(CollectEvent event);
 
     }
 

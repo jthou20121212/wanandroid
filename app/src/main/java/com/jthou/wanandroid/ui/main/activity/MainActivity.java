@@ -1,12 +1,11 @@
 package com.jthou.wanandroid.ui.main.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -21,14 +20,11 @@ import android.view.View;
 
 import com.jthou.wanandroid.R;
 import com.jthou.wanandroid.app.Constants;
-import com.jthou.wanandroid.app.WanAndroidApp;
 import com.jthou.wanandroid.base.BaseView;
 import com.jthou.wanandroid.base.activity.BaseActivity;
 import com.jthou.wanandroid.base.fragment.ParentFragment;
 import com.jthou.wanandroid.base.presenter.ParentPresenter;
 import com.jthou.wanandroid.contract.main.MainContract;
-import com.jthou.wanandroid.di.component.DaggerActivityComponent;
-import com.jthou.wanandroid.model.entity.NightModeEvent;
 import com.jthou.wanandroid.presenter.main.MainPresenter;
 import com.jthou.wanandroid.ui.login.LoginActivity;
 import com.jthou.wanandroid.ui.main.fragment.FavoriteFragment;
@@ -40,12 +36,9 @@ import com.jthou.wanandroid.ui.main.fragment.SearchFragment;
 import com.jthou.wanandroid.ui.main.fragment.SettingFragment;
 import com.jthou.wanandroid.util.BottomNavigationViewHelper;
 import com.jthou.wanandroid.util.CommonUtils;
-import com.jthou.wanandroid.util.LogHelper;
 import com.jthou.wanandroid.util.StatusBarUtil;
 
 import butterknife.BindView;
-import me.yokeyword.fragmentation.ISupportFragment;
-import me.yokeyword.fragmentation.SupportFragment;
 
 public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View, NavigationView.OnNavigationItemSelectedListener,
         MenuItem.OnMenuItemClickListener, BottomNavigationView.OnNavigationItemSelectedListener {
@@ -78,14 +71,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        DaggerActivityComponent.builder().appComponent(WanAndroidApp.getAppComponent()).build().inject(this);
         super.onCreate(savedInstanceState);
         mToolbar.setTitle(R.string.app_name);
         setSupportActionBar(mToolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
-        StatusBarUtil.setStatusColor(getWindow(), ContextCompat.getColor(this, R.color.colorPrimary), 1f);
+        // StatusBarUtil.setStatusColor(getWindow(), ContextCompat.getColor(this, R.color.colorPrimary), 1f);
 
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawerLayout.addDrawerListener(actionBarDrawerToggle);

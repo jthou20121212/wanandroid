@@ -1,5 +1,6 @@
 package com.jthou.wanandroid.base.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,6 +16,7 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import dagger.android.support.AndroidSupportInjection;
 
 /**
  * Created by user on 2018/5/29.
@@ -28,6 +30,12 @@ public abstract class BaseDialogFragment<T extends BasePresenter> extends Abstra
     private Unbinder mUnbinder;
 
     protected abstract int resource();
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        AndroidSupportInjection.inject(this);
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

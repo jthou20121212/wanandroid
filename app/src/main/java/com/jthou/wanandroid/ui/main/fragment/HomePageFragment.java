@@ -1,9 +1,7 @@
 package com.jthou.wanandroid.ui.main.fragment;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.AppCompatImageView;
@@ -17,12 +15,11 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jthou.wanandroid.R;
 import com.jthou.wanandroid.app.Key;
-import com.jthou.wanandroid.app.WanAndroidApp;
 import com.jthou.wanandroid.base.fragment.ParentFragment;
 import com.jthou.wanandroid.contract.main.HomePageContract;
-import com.jthou.wanandroid.di.component.DaggerFragmentComponent;
 import com.jthou.wanandroid.model.entity.Article;
 import com.jthou.wanandroid.model.entity.Banner;
+import com.jthou.wanandroid.model.entity.CollectEvent;
 import com.jthou.wanandroid.presenter.main.HomePagerPresenter;
 import com.jthou.wanandroid.ui.main.activity.ArticleDetailActivity;
 import com.jthou.wanandroid.ui.main.adapter.ArticleAdapter;
@@ -56,27 +53,23 @@ public class HomePageFragment extends ParentFragment<HomePagerPresenter> impleme
 
     private int mCurrentPage;
 
+    private int mPosition = -1;
+
     public static HomePageFragment newInstance() {
         return new HomePageFragment();
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        DaggerFragmentComponent.builder().appComponent(WanAndroidApp.getAppComponent()).build().inject(this);
-    }
-
-    @Override
     public void onResume() {
         super.onResume();
-        if(mViewPager != null)
+        if (mViewPager != null)
             mViewPager.startAutoPlay();
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        if(mViewPager != null)
+        if (mViewPager != null)
             mViewPager.stopAutoPlay();
     }
 
@@ -102,7 +95,7 @@ public class HomePageFragment extends ParentFragment<HomePagerPresenter> impleme
 
             @Override
             public void onPageSelected(int position) {
-                if(!isAdded()) return;
+                if (!isAdded()) return;
                 if (mBannerData == null || mBannerData.isEmpty()) return;
                 int index = position % mBannerData.size();
                 mTvTitle.setText(mBannerData.get(index).getTitle());
@@ -187,6 +180,16 @@ public class HomePageFragment extends ParentFragment<HomePagerPresenter> impleme
     }
 
     @Override
+    public void refreshCollectState(CollectEvent event) {
+        if(mPosition == -1 || mPosition >= mData.size()) return;
+        Article article = mData.get(mPosition);
+        boolean collect = article.isCollect();
+        if (collect == event.isCollect()) return;
+        article.setCollect(event.isCollect());
+        mAdapter.setData(mPosition, article);
+    }
+
+    @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
         mPresenter.getArticleList(mCurrentPage = 0);
         mPresenter.getBannerData();
@@ -200,8 +203,11 @@ public class HomePageFragment extends ParentFragment<HomePagerPresenter> impleme
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         Intent intent = new Intent(_mActivity, ArticleDetailActivity.class);
-        intent.putExtra(Key.ARTICLE_LINK, mData.get(position).getLink());
-        intent.putExtra(Key.ARTICLE_TITLE, mData.get(position).getTitle());
+        Article article = mData.get(mPosition = position);
+        intent.putExtra(Key.ARTICLE_LINK, article.getLink());
+        intent.putExtra(Key.ARTICLE_TITLE, article.getTitle());
+        intent.putExtra(Key.ARTICLE_ID, article.getId());
+        intent.putExtra(Key.ARTICLE_IS_FAVORITE, article.isCollect());
         startActivity(intent);
     }
 

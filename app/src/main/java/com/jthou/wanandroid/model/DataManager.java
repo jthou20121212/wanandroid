@@ -87,6 +87,16 @@ public class DataManager implements DbHelper, HttpHelper, PreferenceHelper {
     }
 
     @Override
+    public Observable<AbstractResponse<String>> collect(int articleId) {
+        return mHttpHelper.collect(articleId);
+    }
+
+    @Override
+    public Observable<AbstractResponse<String>> cancelCollect(int articleId) {
+        return mHttpHelper.cancelCollect(articleId);
+    }
+
+    @Override
     public boolean autoCache() {
         return mPreferenceHelper.autoCache();
     }

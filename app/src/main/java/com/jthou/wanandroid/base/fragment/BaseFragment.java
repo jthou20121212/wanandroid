@@ -25,11 +25,11 @@ public abstract class BaseFragment<T extends BasePresenter> extends AbstractFrag
     @Inject
     protected T mPresenter;
 
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        AndroidSupportInjection.inject(this);
-//    }
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        AndroidSupportInjection.inject(this);
+    }
 
 //    @Override
 //    public void onDetach() {

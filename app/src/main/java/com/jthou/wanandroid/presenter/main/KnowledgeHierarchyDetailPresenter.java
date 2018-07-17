@@ -3,9 +3,12 @@ package com.jthou.wanandroid.presenter.main;
 import com.jthou.wanandroid.base.observer.BaseObserver;
 import com.jthou.wanandroid.base.presenter.ParentPresenter;
 import com.jthou.wanandroid.contract.main.KnowledgeHierarchyDetailContract;
+import com.jthou.wanandroid.contract.main.MainContract;
 import com.jthou.wanandroid.model.DataManager;
 import com.jthou.wanandroid.model.entity.Article;
+import com.jthou.wanandroid.model.entity.CollectEvent;
 import com.jthou.wanandroid.model.network.BaseResponse;
+import com.jthou.wanandroid.util.RxBus;
 import com.jthou.wanandroid.util.RxUtil;
 
 import java.util.List;
@@ -20,6 +23,17 @@ public class KnowledgeHierarchyDetailPresenter extends ParentPresenter<Knowledge
     @Inject
     public KnowledgeHierarchyDetailPresenter(DataManager mDataManager) {
         super(mDataManager);
+    }
+
+    @Override
+    public void attachView(KnowledgeHierarchyDetailContract.View view) {
+        super.attachView(view);
+
+        registerEvent();
+    }
+
+    private void registerEvent() {
+        addSubscribe(RxBus.getDefault().toFlowable(CollectEvent.class).subscribe(collectEvent -> mView.refreshCollectState(collectEvent)));
     }
 
     @Override

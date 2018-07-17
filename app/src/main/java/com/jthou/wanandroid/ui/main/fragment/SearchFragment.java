@@ -6,11 +6,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
@@ -20,10 +17,8 @@ import android.widget.TextView;
 import com.arlib.floatingsearchview.FloatingSearchView;
 import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
 import com.jthou.wanandroid.R;
-import com.jthou.wanandroid.app.WanAndroidApp;
 import com.jthou.wanandroid.base.fragment.BaseDialogFragment;
 import com.jthou.wanandroid.contract.main.SearchContract;
-import com.jthou.wanandroid.di.component.DaggerFragmentComponent;
 import com.jthou.wanandroid.model.entity.HotKey;
 import com.jthou.wanandroid.presenter.main.SearchPresenter;
 import com.jthou.wanandroid.util.CircularRevealAnim;
@@ -36,10 +31,6 @@ import com.zhy.view.flowlayout.TagFlowLayout;
 import java.util.List;
 
 import butterknife.BindView;
-
-/**
- * Created by user on 2018/5/30.
- */
 
 public class SearchFragment extends BaseDialogFragment<SearchPresenter> implements SearchContract.View, CircularRevealAnim.AnimListener, ViewTreeObserver.OnPreDrawListener {
 
@@ -56,7 +47,6 @@ public class SearchFragment extends BaseDialogFragment<SearchPresenter> implemen
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        DaggerFragmentComponent.builder().appComponent(WanAndroidApp.getAppComponent()).build().inject(this);
         super.onCreate(savedInstanceState);
         setStyle(DialogFragment.STYLE_NO_FRAME, R.style.DialogStyle);
     }
@@ -64,7 +54,6 @@ public class SearchFragment extends BaseDialogFragment<SearchPresenter> implemen
     @Override
     public void onStart() {
         super.onStart();
-
         Window window = getDialog().getWindow();
         DisplayMetrics metrics = getResources().getDisplayMetrics();
         //DialogSearch的宽

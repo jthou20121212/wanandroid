@@ -1,26 +1,22 @@
 package com.jthou.wanandroid.di.component;
 
-import com.jthou.wanandroid.ui.main.activity.KnowledgeHierarchyDetailActivity;
-import com.jthou.wanandroid.ui.main.activity.MainActivity;
+import com.jthou.wanandroid.base.activity.BaseActivity;
 import com.jthou.wanandroid.di.scope.ActivityScope;
-import com.jthou.wanandroid.ui.login.LoginActivity;
-import com.jthou.wanandroid.ui.main.activity.ArticleDetailActivity;
-import com.jthou.wanandroid.ui.welcome.activity.WelcomeActivity;
 
-import dagger.Component;
+import dagger.Subcomponent;
+import dagger.android.AndroidInjectionModule;
+import dagger.android.AndroidInjector;
 
 @ActivityScope
-@Component(dependencies = AppComponent.class)
-public interface ActivityComponent {
+@Subcomponent(modules = {AndroidInjectionModule.class})
+public interface ActivityComponent extends AndroidInjector<BaseActivity> {
 
-    void inject(ArticleDetailActivity activity);
+    /**
+     * 每一个继承于BaseActivity的Activity都继承于同一个子组件
+     */
+    @Subcomponent.Builder
+    abstract class BaseBuilder extends AndroidInjector.Builder<BaseActivity>{
 
-    void inject(LoginActivity activity);
-
-    void inject(MainActivity activity);
-
-    void inject(WelcomeActivity activity);
-
-    void inject(KnowledgeHierarchyDetailActivity activity);
+    }
 
 }

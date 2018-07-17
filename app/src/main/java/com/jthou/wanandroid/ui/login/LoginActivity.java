@@ -1,15 +1,12 @@
 package com.jthou.wanandroid.ui.login;
 
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
 import com.jthou.wanandroid.R;
-import com.jthou.wanandroid.app.WanAndroidApp;
 import com.jthou.wanandroid.base.activity.BaseActivity;
 import com.jthou.wanandroid.contract.login.LoginContract;
-import com.jthou.wanandroid.di.component.DaggerActivityComponent;
 import com.jthou.wanandroid.model.entity.LoginInfo;
 import com.jthou.wanandroid.model.event.LoginEvent;
 import com.jthou.wanandroid.presenter.login.LoginPresenter;
@@ -29,12 +26,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     @Override
     protected int resource() {
         return R.layout.activity_login;
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        DaggerActivityComponent.builder().appComponent(WanAndroidApp.getAppComponent()).build().inject(this);
-        super.onCreate(savedInstanceState);
     }
 
     @OnClick(R.id.id_login)

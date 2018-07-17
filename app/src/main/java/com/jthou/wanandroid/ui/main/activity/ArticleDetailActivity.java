@@ -1,8 +1,9 @@
 package com.jthou.wanandroid.ui.main.activity;
 
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -11,13 +12,14 @@ import android.widget.LinearLayout;
 
 import com.jthou.wanandroid.R;
 import com.jthou.wanandroid.app.Key;
-import com.jthou.wanandroid.app.WanAndroidApp;
 import com.jthou.wanandroid.base.activity.BaseActivity;
 import com.jthou.wanandroid.contract.main.ArticleDetailContract;
-import com.jthou.wanandroid.di.component.DaggerActivityComponent;
-import com.jthou.wanandroid.di.component.DaggerFragmentComponent;
+import com.jthou.wanandroid.model.entity.CollectEvent;
+import com.jthou.wanandroid.model.network.AbstractResponse;
 import com.jthou.wanandroid.presenter.main.ArticleDetailPresenter;
 import com.jthou.wanandroid.util.CommonUtils;
+import com.jthou.wanandroid.util.RxBus;
+import com.jthou.wanandroid.util.RxUtil;
 import com.jthou.wanandroid.util.StatusBarUtil;
 import com.just.agentweb.AgentWeb;
 
@@ -32,6 +34,11 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
 
     private AgentWeb mAgentWeb;
 
+    private MenuItem mFavoriteMenu;
+
+    private int mArticleId;
+    private boolean isFavorite;
+
     @Override
     protected int resource() {
         return R.layout.activity_article_detail;
@@ -40,8 +47,9 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        DaggerActivityComponent.builder().appComponent(WanAndroidApp.getAppComponent()).build().inject(this);
 
+        mArticleId = getIntent().getIntExtra(Key.ARTICLE_ID, 0);
+        isFavorite = getIntent().getBooleanExtra(Key.ARTICLE_IS_FAVORITE, false);
         String url = getIntent().getStringExtra(Key.ARTICLE_LINK);
         String title = getIntent().getStringExtra(Key.ARTICLE_TITLE);
 
@@ -85,6 +93,33 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.article_detail_menu, menu);
+        mFavoriteMenu = menu.findItem(R.id.id_menu_favorite);
+        boolean isFavorite = getIntent().getBooleanExtra(Key.ARTICLE_IS_FAVORITE, false);
+        if (isFavorite)
+            mFavoriteMenu.setIcon(R.drawable.icon_favorite);
+        else
+            mFavoriteMenu.setIcon(R.drawable.ic_toolbar_like_n);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        switch (itemId) {
+            case R.id.id_menu_favorite:
+                if (isFavorite) {
+                    mPresenter.cancelFavoriteArticle(mArticleId);
+                } else {
+                    mPresenter.favoriteArticle(mArticleId);
+                }
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     protected void onPause() {
         mAgentWeb.getWebLifeCycle().onPause();
         super.onPause();
@@ -95,6 +130,7 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
         mAgentWeb.getWebLifeCycle().onResume();
         super.onResume();
     }
+
     @Override
     public void onDestroy() {
         mAgentWeb.getWebLifeCycle().onDestroy();
@@ -103,7 +139,27 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
 
     @Override
     public void onClick(View v) {
-        finish();
+        onBackPressedSupport();
+    }
+
+    @Override
+    public void favoriteResult(AbstractResponse<String> response) {
+        isFavorite = true;
+        mFavoriteMenu.setIcon(R.drawable.icon_favorite);
+        CommonUtils.showSnackMessage(this, getString(R.string.collect_success));
+    }
+
+    @Override
+    public void cancelFavoriteResult() {
+        isFavorite = false;
+        mFavoriteMenu.setIcon(R.drawable.ic_toolbar_like_n);
+        CommonUtils.showSnackMessage(this, getString(R.string.cancel_collect_success));
+    }
+
+    @Override
+    public void onBackPressedSupport() {
+        RxBus.getDefault().post(new CollectEvent(isFavorite));
+        super.onBackPressedSupport();
     }
 
 }

@@ -46,4 +46,10 @@ public interface HttpHelper {
 
     // 搜索
     Observable<AbstractResponse<BaseResponse<Article>>> getSearchList(int page, String keyword);
+
+    // 收藏站内文章
+    Observable<AbstractResponse<String>> collect(int articleId);
+
+    // 取消收藏
+    Observable<AbstractResponse<String>> cancelCollect(int articleId);
 }

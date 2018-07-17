@@ -79,4 +79,14 @@ public class RetrofitHelper implements HttpHelper {
         return mWanAndroidApi.getSearchList(page, keyword);
     }
 
+    @Override
+    public Observable<AbstractResponse<String>> collect(int articleId) {
+        return mWanAndroidApi.favoriteArticle(articleId);
+    }
+
+    @Override
+    public Observable<AbstractResponse<String>> cancelCollect(int articleId) {
+        return mWanAndroidApi.cancelFavoriteArticle(articleId);
+    }
+
 }

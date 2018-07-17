@@ -4,6 +4,7 @@ import com.jthou.wanandroid.base.presenter.BasePresenter;
 import com.jthou.wanandroid.base.BaseView;
 import com.jthou.wanandroid.model.entity.Article;
 import com.jthou.wanandroid.model.entity.Banner;
+import com.jthou.wanandroid.model.entity.CollectEvent;
 
 import java.util.List;
 
@@ -18,6 +19,8 @@ public interface HomePageContract {
         void showArticleList(List<Article> data);
 
         void showBannerData(List<Banner> data);
+
+        void refreshCollectState(CollectEvent event);
 
     }
 

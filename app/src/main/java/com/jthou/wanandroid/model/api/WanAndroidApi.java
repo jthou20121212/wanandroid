@@ -63,4 +63,11 @@ public interface WanAndroidApi {
 
     @GET("article/list/{page}/json")
     Observable<AbstractResponse<BaseResponse<Article>>> getKnowledgeHierarchyArticleList(@Path("page") int page, @Query("cid") int cid);
+
+    @POST("lg/collect/{id}/json")
+    Observable<AbstractResponse<String>> favoriteArticle(@Path("id") int articleId);
+
+    @POST("lg/uncollect_originId/{id}/json")
+    Observable<AbstractResponse<String>> cancelFavoriteArticle(@Path("id") int articleId);
+
 }

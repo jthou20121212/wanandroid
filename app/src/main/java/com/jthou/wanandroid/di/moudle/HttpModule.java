@@ -88,18 +88,17 @@ public class HttpModule {
             }
             return response;
         };
-        //设置缓存
+        // 设置缓存
         builder.addNetworkInterceptor(cacheInterceptor);
         builder.addInterceptor(cacheInterceptor);
-
         builder.cache(cache);
-        //设置超时
+        // 设置超时
         builder.connectTimeout(10, TimeUnit.SECONDS);
         builder.readTimeout(20, TimeUnit.SECONDS);
         builder.writeTimeout(20, TimeUnit.SECONDS);
-        //错误重连
+        // 错误重连
         builder.retryOnConnectionFailure(true);
-        //cookie认证
+        // cookie认证
         builder.cookieJar(new CookiesManager());
         return builder.build();
     }

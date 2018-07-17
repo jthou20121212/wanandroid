@@ -1,19 +1,14 @@
 package com.jthou.wanandroid.ui.main.fragment;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 
 import com.jthou.wanandroid.R;
-import com.jthou.wanandroid.app.WanAndroidApp;
 import com.jthou.wanandroid.base.fragment.ParentFragment;
 import com.jthou.wanandroid.contract.main.NavigationContract;
-import com.jthou.wanandroid.di.component.DaggerFragmentComponent;
 import com.jthou.wanandroid.model.entity.Navigation;
 import com.jthou.wanandroid.presenter.main.NavigationPresenter;
 import com.jthou.wanandroid.ui.main.adapter.LeftAdapter;
@@ -44,12 +39,6 @@ public class NavigationFragment extends ParentFragment<NavigationPresenter> impl
     private LinearLayoutManager mRightLayoutManager;
 
     private int mTargetPosition = -1;
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        DaggerFragmentComponent.builder().appComponent(WanAndroidApp.getAppComponent()).build().inject(this);
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     public void onDestroyView() {

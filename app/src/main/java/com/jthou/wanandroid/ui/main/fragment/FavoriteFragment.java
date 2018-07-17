@@ -1,17 +1,13 @@
 package com.jthou.wanandroid.ui.main.fragment;
 
-import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jthou.wanandroid.R;
-import com.jthou.wanandroid.app.WanAndroidApp;
 import com.jthou.wanandroid.base.fragment.ParentFragment;
 import com.jthou.wanandroid.contract.main.FavoriteContract;
-import com.jthou.wanandroid.di.component.DaggerFragmentComponent;
 import com.jthou.wanandroid.model.entity.Article;
 import com.jthou.wanandroid.presenter.main.FavoritePresenter;
 import com.jthou.wanandroid.ui.main.adapter.ArticleAdapter;
@@ -47,12 +43,6 @@ public class FavoriteFragment extends ParentFragment<FavoritePresenter> implemen
 
     public static FavoriteFragment newInstance() {
         return new FavoriteFragment();
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        DaggerFragmentComponent.builder().appComponent(WanAndroidApp.getAppComponent()).build().inject(this);
     }
 
     @Override

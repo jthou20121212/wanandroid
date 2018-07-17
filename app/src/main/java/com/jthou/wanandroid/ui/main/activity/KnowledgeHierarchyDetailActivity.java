@@ -15,17 +15,13 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jthou.wanandroid.R;
 import com.jthou.wanandroid.app.Constants;
 import com.jthou.wanandroid.app.Key;
-import com.jthou.wanandroid.app.WanAndroidApp;
 import com.jthou.wanandroid.base.activity.BaseActivity;
 import com.jthou.wanandroid.contract.main.KnowledgeHierarchyDetailContract;
-import com.jthou.wanandroid.di.component.AppComponent;
-import com.jthou.wanandroid.di.component.DaggerActivityComponent;
-import com.jthou.wanandroid.di.component.DaggerFragmentComponent;
 import com.jthou.wanandroid.model.entity.Article;
+import com.jthou.wanandroid.model.entity.CollectEvent;
 import com.jthou.wanandroid.model.entity.KnowledgeHierarchy;
 import com.jthou.wanandroid.presenter.main.KnowledgeHierarchyDetailPresenter;
 import com.jthou.wanandroid.ui.main.adapter.ArticleAdapter;
-import com.jthou.wanandroid.util.LogHelper;
 import com.jthou.wanandroid.util.StatusBarUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -55,6 +51,8 @@ public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHier
     private List<Article> mData;
     private ArticleAdapter mAdapter;
 
+    private int mPosition = -1;
+
     @Override
     protected int resource() {
         return R.layout.activity_knowledge_hierarchy_detail;
@@ -62,7 +60,6 @@ public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHier
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        DaggerActivityComponent.builder().appComponent(WanAndroidApp.getAppComponent()).build().inject(this);
         super.onCreate(savedInstanceState);
 
         KnowledgeHierarchy knowledgeHierarchy = getIntent().getParcelableExtra(Constants.IT_KNOWLEDGE_HIERARCHY);
@@ -131,10 +128,23 @@ public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHier
     }
 
     @Override
+    public void refreshCollectState(CollectEvent event) {
+        if(mPosition == -1 || mPosition >= mData.size()) return;
+        Article article = mData.get(mPosition);
+        boolean collect = article.isCollect();
+        if (collect == event.isCollect()) return;
+        article.setCollect(event.isCollect());
+        mAdapter.setData(mPosition, article);
+    }
+
+    @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         Intent intent = new Intent(this, ArticleDetailActivity.class);
-        intent.putExtra(Key.ARTICLE_LINK, mData.get(position).getLink());
-        intent.putExtra(Key.ARTICLE_TITLE, mData.get(position).getTitle());
+        Article article = mData.get(mPosition = position);
+        intent.putExtra(Key.ARTICLE_LINK, article.getLink());
+        intent.putExtra(Key.ARTICLE_TITLE, article.getTitle());
+        intent.putExtra(Key.ARTICLE_ID, article.getId());
+        intent.putExtra(Key.ARTICLE_IS_FAVORITE, article.isCollect());
         startActivity(intent);
     }
 

@@ -2,10 +2,6 @@ package com.jthou.wanandroid.model.entity;
 
 import java.util.List;
 
-/**
- * Created by user on 2018/5/17.
- */
-
 public class Article {
 
     private String apkLink;

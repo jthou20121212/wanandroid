@@ -36,23 +36,21 @@ public class ArticleAdapter extends BaseQuickAdapter<Article, BaseViewHolder> {
         if (!TextUtils.isEmpty(article.getTitle())) {
             helper.setText(R.id.item_search_pager_title, Html.fromHtml(article.getTitle()));
         }
-//        if (article.isCollect() || isCollectPage) {
-//            helper.setImageResource(R.id.item_search_pager_like_iv, R.drawable.icon_like);
-//        } else {
-//            helper.setImageResource(R.id.item_search_pager_like_iv, R.drawable.icon_like_article_not_selected);
-//        }
+        if (article.isCollect()) {
+            helper.setImageResource(R.id.item_search_pager_like_iv, R.drawable.icon_favorite);
+        } else {
+            helper.setImageResource(R.id.item_search_pager_like_iv, R.drawable.icon_like_article_not_selected);
+        }
         if (!TextUtils.isEmpty(article.getAuthor())) {
             helper.setText(R.id.item_search_pager_author, article.getAuthor());
         }
 //        setTag(helper, article);
-        if (!TextUtils.isEmpty(article.getChapterName())) {
-            String classifyName = article.getSuperChapterName() + " / " + article.getChapterName();
-//            if (isCollectPage) {
-//                helper.setText(R.id.item_search_pager_chapterName, article.getChapterName());
-//            } else {
-                helper.setText(R.id.item_search_pager_chapterName, classifyName);
-//            }
-        }
+        // 收藏页面只有chapterName
+        if(TextUtils.isEmpty(article.getSuperChapterName()))
+            helper.setText(R.id.item_search_pager_chapterName, article.getChapterName());
+        else
+            helper.setText(R.id.item_search_pager_chapterName, mContext.getString(R.string.chapter_name, article.getSuperChapterName(), article.getChapterName()));
+
         if (!TextUtils.isEmpty(article.getNiceDate())) {
             helper.setText(R.id.item_search_pager_niceDate, article.getNiceDate());
         }
