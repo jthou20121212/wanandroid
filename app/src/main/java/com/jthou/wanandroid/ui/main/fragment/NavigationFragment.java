@@ -13,19 +13,18 @@ import com.jthou.wanandroid.model.entity.Navigation;
 import com.jthou.wanandroid.presenter.main.NavigationPresenter;
 import com.jthou.wanandroid.ui.main.adapter.LeftAdapter;
 import com.jthou.wanandroid.ui.main.adapter.RightAdapter;
-import com.jthou.wanandroid.util.ItemClickSupport;
-import com.jthou.wanandroid.util.L;
 import com.jthou.wanandroid.util.StickyTitleDecoration;
+import com.jthou.wanandroid.util.weight.ClickRecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 
-public class NavigationFragment extends ParentFragment<NavigationPresenter> implements NavigationContract.View, ItemClickSupport.OnItemClickListener {
+public class NavigationFragment extends ParentFragment<NavigationPresenter> implements NavigationContract.View, ClickRecyclerView.OnItemClickListener {
 
     @BindView(R.id.id_recycleView_left)
-    RecyclerView mLeftRecyclerView;
+    ClickRecyclerView mLeftRecyclerView;
     @BindView(R.id.id_recycleView_right)
     RecyclerView mRightRecyclerView;
 
@@ -39,12 +38,6 @@ public class NavigationFragment extends ParentFragment<NavigationPresenter> impl
     private LinearLayoutManager mRightLayoutManager;
 
     private int mTargetPosition = -1;
-
-    @Override
-    public void onDestroyView() {
-        ItemClickSupport.removeFrom(mLeftRecyclerView);
-        super.onDestroyView();
-    }
 
     @Override
     public void showNavigationData(List<Navigation> data) {
@@ -65,8 +58,9 @@ public class NavigationFragment extends ParentFragment<NavigationPresenter> impl
     @Override
     protected void initDataAndEvent() {
         mLeftData = new ArrayList<>();
-        mLeftAdapter = new LeftAdapter(_mActivity, mLeftData);
+        mLeftAdapter = new LeftAdapter(R.layout.item_novigation_left, mLeftData);
         mLeftRecyclerView.setAdapter(mLeftAdapter);
+        mLeftRecyclerView.setOnItemClickListener(this);
         DividerItemDecoration decoration = new DividerItemDecoration(_mActivity, DividerItemDecoration.VERTICAL);
         mLeftRecyclerView.addItemDecoration(decoration);
         mLeftLayoutManager = new LinearLayoutManager(_mActivity);
@@ -99,48 +93,10 @@ public class NavigationFragment extends ParentFragment<NavigationPresenter> impl
             }
 
         });
-        // stickyDecoration.resetSpan(mRightRecyclerView, mRightLayoutManager);
         mRightRecyclerView.addItemDecoration(stickyDecoration);
-
-        ItemClickSupport.addTo(mLeftRecyclerView).setOnItemClickListener(this);
 
         mPresenter.getNavigationList();
         showLoading();
-    }
-
-    @Override
-    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-        L.e("onItemClicked");
-        final int id = recyclerView.getId();
-        switch (id) {
-            case R.id.id_recycleView_left:
-                mLeftAdapter.setSelectPosition(position);
-
-                String name = mLeftData.get(position).getName();
-                int rightPosition = 0;
-                for (int i = 0; i < mRightData.size(); i++) {
-                    Navigation navigation = mRightData.get(i);
-                    if (TextUtils.equals(name, navigation.getName())) {
-                        rightPosition = i;
-                        break;
-                    }
-                }
-
-                int firstVisibleItemPosition = mRightLayoutManager.findFirstVisibleItemPosition();
-                int lastVisibleItemPosition = mRightLayoutManager.findLastVisibleItemPosition();
-                if (rightPosition <= firstVisibleItemPosition) {
-                    mRightRecyclerView.scrollToPosition(rightPosition);
-                } else if (rightPosition <= lastVisibleItemPosition) {
-                    View childAt = mRightRecyclerView.getChildAt(rightPosition - firstVisibleItemPosition);
-                    mRightRecyclerView.scrollBy(0, childAt.getTop());
-                } else {
-                    // 这里需要先滚动position所在的位置
-                    mRightRecyclerView.scrollToPosition(rightPosition);
-                    mTargetPosition = rightPosition;
-                }
-                break;
-            default:
-        }
     }
 
     RecyclerView.OnScrollListener mRightOnScrollListener = new RecyclerView.OnScrollListener() {
@@ -171,6 +127,35 @@ public class NavigationFragment extends ParentFragment<NavigationPresenter> impl
 
     public static NavigationFragment newInstance() {
         return new NavigationFragment();
+    }
+
+    @Override
+    public void onClick(RecyclerView.ViewHolder viewHolder) {
+        int position = viewHolder.getLayoutPosition();
+        mLeftAdapter.setSelectPosition(position);
+
+        String name = mLeftData.get(position).getName();
+        int rightPosition = 0;
+        for (int i = 0; i < mRightData.size(); i++) {
+            Navigation navigation = mRightData.get(i);
+            if (TextUtils.equals(name, navigation.getName())) {
+                rightPosition = i;
+                break;
+            }
+        }
+
+        int firstVisibleItemPosition = mRightLayoutManager.findFirstVisibleItemPosition();
+        int lastVisibleItemPosition = mRightLayoutManager.findLastVisibleItemPosition();
+        if (rightPosition <= firstVisibleItemPosition) {
+            mRightRecyclerView.scrollToPosition(rightPosition);
+        } else if (rightPosition <= lastVisibleItemPosition) {
+            View childAt = mRightRecyclerView.getChildAt(rightPosition - firstVisibleItemPosition);
+            mRightRecyclerView.scrollBy(0, childAt.getTop());
+        } else {
+            // 这里需要先滚动position所在的位置
+            mRightRecyclerView.scrollToPosition(rightPosition);
+            mTargetPosition = rightPosition;
+        }
     }
 
 }

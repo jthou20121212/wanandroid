@@ -1,8 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/linear_layout"
     android:layout_width="match_parent"
     android:layout_height="50dp"
     android:gravity="center"
+    android:clickable="true"
     android:orientation="vertical">
 
     <TextView

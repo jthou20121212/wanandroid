@@ -6,11 +6,13 @@
     <android.support.constraint.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/normal_view"
         android:layout_width="match_parent"
+        android:background="@android:color/white"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
+        <com.jthou.wanandroid.util.weight.ClickRecyclerView
             android:id="@+id/id_recycleView_left"
             android:layout_width="0dp"
+            android:clickable="false"
             android:layout_height="match_parent"
             app:layout_constraintHorizontal_weight="1"
             app:layout_constraintLeft_toLeftOf="parent" />

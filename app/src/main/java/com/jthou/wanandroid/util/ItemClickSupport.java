@@ -14,9 +14,7 @@ public class ItemClickSupport {
     private View.OnClickListener mOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            L.e("onClick 1");
             if (mOnItemClickListener != null) {
-                L.e("onClick 2");
                 RecyclerView.ViewHolder holder = mRecyclerView.getChildViewHolder(v);
                 mOnItemClickListener.onItemClicked(mRecyclerView, holder.getAdapterPosition(), v);
             }
@@ -47,7 +45,8 @@ public class ItemClickSupport {
         }
 
         @Override
-        public void onChildViewDetachedFromWindow(View view) {}
+        public void onChildViewDetachedFromWindow(View view) {
+        }
     };
 
     private ItemClickSupport(RecyclerView recyclerView) {
@@ -57,7 +56,7 @@ public class ItemClickSupport {
     }
 
     public static ItemClickSupport addTo(RecyclerView view) {
-        if(view == null) return null;
+        if (view == null) return null;
         ItemClickSupport support = (ItemClickSupport) view.getTag(R.id.item_click_support);
         if (support == null) {
             support = new ItemClickSupport(view);
@@ -66,7 +65,7 @@ public class ItemClickSupport {
     }
 
     public static ItemClickSupport removeFrom(RecyclerView view) {
-        if(view == null) return null;
+        if (view == null) return null;
         ItemClickSupport support = (ItemClickSupport) view.getTag(R.id.item_click_support);
         if (support != null) {
             support.detach(view);
