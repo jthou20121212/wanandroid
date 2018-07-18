@@ -13,11 +13,14 @@ import com.jthou.wanandroid.model.entity.Article;
 
 import java.util.List;
 
-/**
- * Created by user on 2018/5/21.
- */
-
 public class ArticleAdapter extends BaseQuickAdapter<Article, BaseViewHolder> {
+
+    // 标记是否是收藏页面
+    private boolean isCollectPage;
+
+    public void setCollectPage(boolean collectPage) {
+        isCollectPage = collectPage;
+    }
 
     public ArticleAdapter(int layoutResId, @Nullable List<Article> data) {
         super(layoutResId, data);
@@ -36,7 +39,7 @@ public class ArticleAdapter extends BaseQuickAdapter<Article, BaseViewHolder> {
         if (!TextUtils.isEmpty(article.getTitle())) {
             helper.setText(R.id.item_search_pager_title, Html.fromHtml(article.getTitle()));
         }
-        if (article.isCollect()) {
+        if (article.isCollect() || isCollectPage) {
             helper.setImageResource(R.id.item_search_pager_like_iv, R.drawable.icon_favorite);
         } else {
             helper.setImageResource(R.id.item_search_pager_like_iv, R.drawable.icon_like_article_not_selected);
@@ -46,7 +49,7 @@ public class ArticleAdapter extends BaseQuickAdapter<Article, BaseViewHolder> {
         }
 //        setTag(helper, article);
         // 收藏页面只有chapterName
-        if(TextUtils.isEmpty(article.getSuperChapterName()))
+        if(isCollectPage)
             helper.setText(R.id.item_search_pager_chapterName, article.getChapterName());
         else
             helper.setText(R.id.item_search_pager_chapterName, mContext.getString(R.string.chapter_name, article.getSuperChapterName(), article.getChapterName()));

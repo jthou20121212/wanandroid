@@ -58,7 +58,6 @@ public interface WanAndroidApi {
     Observable<AbstractResponse<List<HotKey>>> getHotKeyList();
 
     @POST("article/query/{page}/json")
-    @FormUrlEncoded
     Observable<AbstractResponse<BaseResponse<Article>>> getSearchList(@Path("page") int page, @Query("k") String keyword);
 
     @GET("article/list/{page}/json")

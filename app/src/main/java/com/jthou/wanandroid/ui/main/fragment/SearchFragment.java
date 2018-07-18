@@ -1,5 +1,6 @@
 package com.jthou.wanandroid.ui.main.fragment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -17,10 +18,13 @@ import android.widget.TextView;
 import com.arlib.floatingsearchview.FloatingSearchView;
 import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
 import com.jthou.wanandroid.R;
+import com.jthou.wanandroid.app.Key;
 import com.jthou.wanandroid.base.fragment.BaseDialogFragment;
 import com.jthou.wanandroid.contract.main.SearchContract;
+import com.jthou.wanandroid.model.entity.Article;
 import com.jthou.wanandroid.model.entity.HotKey;
 import com.jthou.wanandroid.presenter.main.SearchPresenter;
+import com.jthou.wanandroid.ui.search.activity.SearchListActivity;
 import com.jthou.wanandroid.util.CircularRevealAnim;
 import com.jthou.wanandroid.util.CommonUtils;
 import com.jthou.wanandroid.util.LogHelper;
@@ -74,12 +78,15 @@ public class SearchFragment extends BaseDialogFragment<SearchPresenter> implemen
         mSearchView.setOnSearchListener(new FloatingSearchView.OnSearchListener() {
             @Override
             public void onSuggestionClicked(SearchSuggestion searchSuggestion) {
-                // LogHelper.e(searchSuggestion.getBody());
+
             }
 
             @Override
             public void onSearchAction(String currentQuery) {
-                LogHelper.e(currentQuery);
+                mCircularRevealAnim.hide(mSearchView, getView());
+                Intent intent = new Intent(_mActivity, SearchListActivity.class);
+                intent.putExtra(Key.IT_KEYWORD, currentQuery);
+                startActivity(intent);
             }
         });
 
@@ -106,9 +113,16 @@ public class SearchFragment extends BaseDialogFragment<SearchPresenter> implemen
             }
         });
         mTagFlowLayout.setOnTagClickListener((view, position, parent) -> {
-
+            Intent intent = new Intent(_mActivity, SearchListActivity.class);
+            intent.putExtra(Key.IT_KEYWORD, hotWordList.get(position).getName());
+            startActivity(intent);
             return true;
         });
+    }
+
+    @Override
+    public void showSearchList(List<Article> searchList) {
+
     }
 
     @Override

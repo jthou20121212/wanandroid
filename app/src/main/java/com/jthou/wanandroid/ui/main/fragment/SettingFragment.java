@@ -13,6 +13,7 @@ import com.jthou.wanandroid.base.fragment.ParentFragment;
 import com.jthou.wanandroid.contract.main.SettingContract;
 import com.jthou.wanandroid.model.entity.NightModeEvent;
 import com.jthou.wanandroid.presenter.main.SettingPresenter;
+import com.jthou.wanandroid.util.ACache;
 import com.jthou.wanandroid.util.RxBus;
 
 import java.io.File;
@@ -54,7 +55,7 @@ public class SettingFragment extends ParentFragment<SettingPresenter> implements
     @Override
     protected void initDataAndEvent() {
         cacheFile = new File(Constants.PATH_CACHE);
-        // tvSettingClear.setText(ACache.getCacheSize(cacheFile));
+        tvSettingClear.setText(ACache.getCacheSize(cacheFile));
         cbSettingCache.setChecked(mPresenter.getAutoCacheState());
         cbSettingImage.setChecked(mPresenter.getNoImageState());
         cbSettingNight.setChecked(mPresenter.getNightModeState());
@@ -65,7 +66,7 @@ public class SettingFragment extends ParentFragment<SettingPresenter> implements
             PackageManager pm = getActivity().getPackageManager();
             PackageInfo pi = pm.getPackageInfo(getActivity().getPackageName(), PackageManager.GET_ACTIVITIES);
             versionName = pi.versionName;
-            tvSettingUpdate.setText(String.format("当前版本号 v%s", versionName));
+            tvSettingUpdate.setText(String.format(getString(R.string.version_name), versionName));
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
@@ -78,8 +79,8 @@ public class SettingFragment extends ParentFragment<SettingPresenter> implements
 
     @OnClick(R.id.ll_setting_clear)
     void doClear() {
-//        ACache.deleteDir(cacheFile);
-//        tvSettingClear.setText(ACache.getCacheSize(cacheFile));
+        ACache.deleteDir(cacheFile);
+        tvSettingClear.setText(ACache.getCacheSize(cacheFile));
     }
 
     @OnClick(R.id.ll_setting_update)

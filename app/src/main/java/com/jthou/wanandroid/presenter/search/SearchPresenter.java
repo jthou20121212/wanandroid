@@ -2,9 +2,12 @@ package com.jthou.wanandroid.presenter.search;
 
 import com.jthou.wanandroid.base.observer.BaseObserver;
 import com.jthou.wanandroid.base.presenter.ParentPresenter;
+import com.jthou.wanandroid.contract.main.HomePageContract;
 import com.jthou.wanandroid.contract.search.SearchContract;
 import com.jthou.wanandroid.model.DataManager;
 import com.jthou.wanandroid.model.entity.Article;
+import com.jthou.wanandroid.model.entity.CollectEvent;
+import com.jthou.wanandroid.util.RxBus;
 import com.jthou.wanandroid.util.RxUtil;
 
 import java.util.List;
@@ -20,6 +23,17 @@ public class SearchPresenter extends ParentPresenter<SearchContract.View> implem
     @Inject
     public SearchPresenter(DataManager mDataManager) {
         super(mDataManager);
+    }
+
+    @Override
+    public void attachView(SearchContract.View view) {
+        super.attachView(view);
+
+        registerEvent();
+    }
+
+    private void registerEvent() {
+        addSubscribe(RxBus.getDefault().toFlowable(CollectEvent.class).subscribe(collectEvent -> mView.refreshCollectState(collectEvent)));
     }
 
     @Override

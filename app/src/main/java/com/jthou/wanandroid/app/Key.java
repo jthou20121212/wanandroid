@@ -14,6 +14,8 @@ public class Key {
 
     public static final String ARTICLE_IS_FAVORITE = "article_is_favorite";
 
+    public static final String IT_KEYWORD = "it_keyword";
+
     public static final String SP_AUTO_CACHE = "sp_auto_cache";
 
     public static final String SP_NO_IMAGE = "sp_no_image";

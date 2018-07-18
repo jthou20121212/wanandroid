@@ -1,7 +1,13 @@
 package com.jthou.wanandroid.ui.main.activity;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.view.ViewCompat;
+import android.support.v4.view.ViewGroupCompat;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,9 +25,10 @@ import com.jthou.wanandroid.model.network.AbstractResponse;
 import com.jthou.wanandroid.presenter.main.ArticleDetailPresenter;
 import com.jthou.wanandroid.util.CommonUtils;
 import com.jthou.wanandroid.util.RxBus;
-import com.jthou.wanandroid.util.RxUtil;
 import com.jthou.wanandroid.util.StatusBarUtil;
 import com.just.agentweb.AgentWeb;
+
+import java.lang.reflect.Method;
 
 import butterknife.BindView;
 
@@ -44,6 +51,7 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
         return R.layout.activity_article_detail;
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +61,7 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
         String url = getIntent().getStringExtra(Key.ARTICLE_LINK);
         String title = getIntent().getStringExtra(Key.ARTICLE_TITLE);
 
-        mToolbar.setTitle(title);
+        mToolbar.setTitle(Html.fromHtml(title));
         setSupportActionBar(mToolbar);
         mToolbar.setNavigationOnClickListener(this);
         StatusBarUtil.immersive(this);
@@ -77,14 +85,16 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
             } else {
                 settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
             }
+        } else {
+            settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
         }
         settings.setJavaScriptEnabled(true);
         settings.setSupportZoom(true);
         settings.setBuiltInZoomControls(true);
         // 不显示缩放按钮
         settings.setDisplayZoomControls(false);
-        //设置自适应屏幕，两者合用
-        //将图片调整到适合WebView的大小
+        // 设置自适应屏幕，两者合用
+        // 将图片调整到适合WebView的大小
         settings.setUseWideViewPort(true);
         // 缩放至屏幕的大小
         settings.setLoadWithOverviewMode(true);
@@ -115,9 +125,40 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
                     mPresenter.favoriteArticle(mArticleId);
                 }
                 break;
+            case R.id.id_menu_share:
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                String url = getIntent().getStringExtra(Key.ARTICLE_LINK);
+                String title = getIntent().getStringExtra(Key.ARTICLE_TITLE);
+                intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_text, getString(R.string.app_name), title, url));
+                intent.setType("text/plain");
+                startActivity(intent);
+                break;
+            case R.id.id_menu_browser:
+                String articleLink = getIntent().getStringExtra(Key.ARTICLE_LINK);
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(articleLink)));
+                break;
+            default:
         }
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public boolean onMenuOpened(int featureId, Menu menu) {
+        if (menu != null) {
+            if ("MenuBuilder".equalsIgnoreCase(menu.getClass().getSimpleName())) {
+                try {
+                    @SuppressLint("PrivateApi")
+                    Method method = menu.getClass().getDeclaredMethod("setOptionalIconsVisible", Boolean.TYPE);
+                    method.setAccessible(true);
+                    method.invoke(menu, true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return super.onMenuOpened(featureId, menu);
+    }
+
 
     @Override
     protected void onPause() {

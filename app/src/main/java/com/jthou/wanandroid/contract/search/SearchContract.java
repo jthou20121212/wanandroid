@@ -3,6 +3,7 @@ package com.jthou.wanandroid.contract.search;
 import com.jthou.wanandroid.base.BaseView;
 import com.jthou.wanandroid.base.presenter.BasePresenter;
 import com.jthou.wanandroid.model.entity.Article;
+import com.jthou.wanandroid.model.entity.CollectEvent;
 
 import java.util.List;
 
@@ -15,6 +16,8 @@ public interface SearchContract {
     interface View extends BaseView {
 
         void showSearchResult(List<Article> articleList);
+
+        void refreshCollectState(CollectEvent event);
 
     }
 

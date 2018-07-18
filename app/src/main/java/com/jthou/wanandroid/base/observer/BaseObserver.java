@@ -60,7 +60,7 @@ public abstract class BaseObserver<T> extends ResourceObserver<T> {
         if (mView == null || !mView.isShow()) {
             return;
         }
-        if (mErrorMsg != null && !TextUtils.isEmpty(mErrorMsg)) {
+        if (!TextUtils.isEmpty(mErrorMsg)) {
             showErrorMsg(mErrorMsg);
         }
 //        else if (e instanceof ServerException) {
