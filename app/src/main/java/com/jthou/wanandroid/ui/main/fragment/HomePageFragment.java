@@ -24,6 +24,7 @@ import com.jthou.wanandroid.presenter.main.HomePagerPresenter;
 import com.jthou.wanandroid.ui.main.activity.ArticleDetailActivity;
 import com.jthou.wanandroid.ui.main.adapter.ArticleAdapter;
 import com.jthou.wanandroid.util.AutoPlayViewPager;
+import com.jthou.wanandroid.util.CommonUtils;
 import com.jthou.wanandroid.util.image.ImageLoader;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -43,13 +44,12 @@ public class HomePageFragment extends ParentFragment<HomePagerPresenter> impleme
     @BindView(R.id.normal_view)
     SmartRefreshLayout mRefreshLayout;
 
-    private TextView mTvTitle;
-    private TextView mTvIndex;
     private List<Banner> mBannerData;
     private AutoPlayViewPager mViewPager;
 
     private List<Article> mData;
     private ArticleAdapter mAdapter;
+    private ViewPager.OnPageChangeListener mListener;
 
     private int mCurrentPage;
 
@@ -82,12 +82,12 @@ public class HomePageFragment extends ParentFragment<HomePagerPresenter> impleme
     protected void initDataAndEvent() {
         // 初始化ViewPager
         View viewGroup = View.inflate(_mActivity, R.layout.banner_view, null);
-        mTvTitle = viewGroup.findViewById(R.id.id_tv_title);
-        mTvIndex = viewGroup.findViewById(R.id.id_tv_index);
+        TextView tvTitle = viewGroup.findViewById(R.id.id_tv_title);
+        TextView tvIndex = viewGroup.findViewById(R.id.id_tv_index);
         mViewPager = viewGroup.findViewById(R.id.id_viewPager);
         mViewPager.setPageMargin(20);
         mViewPager.setOffscreenPageLimit(3);
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        mViewPager.addOnPageChangeListener(mListener = new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -98,8 +98,8 @@ public class HomePageFragment extends ParentFragment<HomePagerPresenter> impleme
                 if (!isAdded()) return;
                 if (mBannerData == null || mBannerData.isEmpty()) return;
                 int index = position % mBannerData.size();
-                mTvTitle.setText(mBannerData.get(index).getTitle());
-                mTvIndex.setText(getString(R.string.index_count, index, mBannerData.size()));
+                tvTitle.setText(mBannerData.get(index).getTitle());
+                tvIndex.setText(getString(R.string.index_count, index + 1, mBannerData.size()));
             }
 
             @Override
@@ -111,6 +111,7 @@ public class HomePageFragment extends ParentFragment<HomePagerPresenter> impleme
             if (mBannerData == null || mBannerData.isEmpty()) return;
             int index = position % mBannerData.size();
             Intent intent = new Intent(_mActivity, ArticleDetailActivity.class);
+            // TODO id, isCollect
             intent.putExtra(Key.ARTICLE_LINK, mBannerData.get(index).getUrl());
             intent.putExtra(Key.ARTICLE_TITLE, mBannerData.get(index).getTitle());
             startActivity(intent);
@@ -136,11 +137,17 @@ public class HomePageFragment extends ParentFragment<HomePagerPresenter> impleme
     public void showArticleList(List<Article> data) {
         showNormal();
 
-        mRefreshLayout.finishLoadMore();
-        if (mCurrentPage == 0)
+        if (mCurrentPage == 0) {
             mAdapter.replaceData(data);
-        else
-            mAdapter.addData(data);
+            mRefreshLayout.finishRefresh();
+        } else {
+            if(data.size() > 0) {
+                mAdapter.addData(data);
+            } else {
+                CommonUtils.showSnackMessage(_mActivity, getString(R.string.no_more));
+            }
+            mRefreshLayout.finishLoadMore();
+        }
     }
 
     @Override
@@ -177,11 +184,12 @@ public class HomePageFragment extends ParentFragment<HomePagerPresenter> impleme
         };
         mViewPager.setAdapter(adapter);
         mViewPager.startAutoPlay();
+        mViewPager.post(() -> mListener.onPageSelected(0));
     }
 
     @Override
     public void refreshCollectState(CollectEvent event) {
-        if(mPosition == -1 || mPosition >= mData.size()) return;
+        if (mPosition == -1 || mPosition >= mData.size()) return;
         Article article = mData.get(mPosition);
         boolean collect = article.isCollect();
         if (collect == event.isCollect()) return;
@@ -192,7 +200,6 @@ public class HomePageFragment extends ParentFragment<HomePagerPresenter> impleme
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
         mPresenter.getArticleList(mCurrentPage = 0);
-        mPresenter.getBannerData();
     }
 
     @Override

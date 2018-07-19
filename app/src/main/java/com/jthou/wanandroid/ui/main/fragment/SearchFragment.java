@@ -36,7 +36,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class SearchFragment extends BaseDialogFragment<SearchPresenter> implements SearchContract.View, CircularRevealAnim.AnimListener, ViewTreeObserver.OnPreDrawListener {
+public class SearchFragment extends BaseDialogFragment<SearchPresenter> implements SearchContract.View, CircularRevealAnim.AnimListener {
 
     @BindView(R.id.id_tagFlowLayout)
     TagFlowLayout mTagFlowLayout;
@@ -113,6 +113,7 @@ public class SearchFragment extends BaseDialogFragment<SearchPresenter> implemen
             }
         });
         mTagFlowLayout.setOnTagClickListener((view, position, parent) -> {
+            mCircularRevealAnim.hide(mSearchView, getView());
             Intent intent = new Intent(_mActivity, SearchListActivity.class);
             intent.putExtra(Key.IT_KEYWORD, hotWordList.get(position).getName());
             startActivity(intent);
@@ -138,13 +139,6 @@ public class SearchFragment extends BaseDialogFragment<SearchPresenter> implemen
     @Override
     public void onShowAnimationEnd() {
 
-    }
-
-    @Override
-    public boolean onPreDraw() {
-//        mTextView.getViewTreeObserver().removeOnPreDrawListener(this);
-//        mCircularRevealAnim.show(mTextView, getView());
-        return true;
     }
 
 }

@@ -7,6 +7,8 @@ import android.support.v7.widget.AppCompatTextView;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 
+import com.jthou.wanandroid.R;
+
 public class JustifyTextView extends AppCompatTextView {
 
     public JustifyTextView(Context context) {
@@ -27,17 +29,19 @@ public class JustifyTextView extends AppCompatTextView {
 
         float baseline = fm.descent - fm.ascent;
         float x = getPaddingLeft();
-        float y = baseline;  //由于系统基于字体的底部来绘制文本，所有需要加上字体的高度。
+        float y = baseline;                                         // 由于系统基于字体的底部来绘制文本，所有需要加上字体的高度。
 
         String txt = getText().toString();
-        //文本自动换行
+                                                                    // 文本自动换行
         String[] texts = autoSplit(txt, getPaint(), getWidth() - getPaddingLeft() - getPaddingRight());
+
+        getPaint().linkColor = R.color.comment_text;
 
         for (String text : texts) {
             if (TextUtils.isEmpty(text))
                 return;
-            canvas.drawText(text, x, y, getPaint());  //坐标以控件左上角为原点
-            y += baseline + fm.leading; //添加字体行间距
+            canvas.drawText(text, x, y, getPaint());                // 坐标以控件左上角为原点
+            y += baseline + fm.leading;                             // 添加字体行间距
         }
     }
 

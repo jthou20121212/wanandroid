@@ -18,6 +18,7 @@ import com.jthou.wanandroid.model.entity.ProjectClassify;
 import com.jthou.wanandroid.presenter.main.ProjectPresenter;
 import com.jthou.wanandroid.ui.main.activity.ArticleDetailActivity;
 import com.jthou.wanandroid.ui.main.adapter.ProjectListAdapter;
+import com.jthou.wanandroid.util.CommonUtils;
 import com.jthou.wanandroid.util.ItemClickSupport;
 import com.jthou.wanandroid.util.LogHelper;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -64,7 +65,11 @@ public class ProjectFragment extends ParentFragment<ProjectPresenter> implements
             mAdapter.replaceData(articleList);
             mSmartRefreshLayout.finishRefresh();
         } else {
-            mAdapter.addData(articleList);
+            if (articleList.size() > 0) {
+                mAdapter.addData(articleList);
+            } else {
+                CommonUtils.showSnackMessage(_mActivity, getString(R.string.no_more));
+            }
             mSmartRefreshLayout.finishLoadMore();
         }
         showNormal();
@@ -72,7 +77,7 @@ public class ProjectFragment extends ParentFragment<ProjectPresenter> implements
 
     @Override
     public void refreshCollectState(CollectEvent event) {
-        if(mPosition == -1 || mPosition >= mData.size()) return;
+        if (mPosition == -1 || mPosition >= mData.size()) return;
         Article article = mData.get(mPosition);
         boolean collect = article.isCollect();
         if (collect == event.isCollect()) return;

@@ -36,12 +36,13 @@ import com.jthou.wanandroid.ui.main.fragment.SearchFragment;
 import com.jthou.wanandroid.ui.main.fragment.SettingFragment;
 import com.jthou.wanandroid.util.BottomNavigationViewHelper;
 import com.jthou.wanandroid.util.CommonUtils;
+import com.jthou.wanandroid.util.LogHelper;
 import com.jthou.wanandroid.util.StatusBarUtil;
 
 import butterknife.BindView;
 
-public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View, NavigationView.OnNavigationItemSelectedListener,
-        MenuItem.OnMenuItemClickListener, BottomNavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View,
+        MenuItem.OnMenuItemClickListener, BottomNavigationView.OnNavigationItemSelectedListener, NavigationView.OnNavigationItemSelectedListener {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
@@ -51,6 +52,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     NavigationView mNavigationView;
     @BindView(R.id.id_bottom_navigation_view)
     BottomNavigationView mBottomNavigationView;
+
+    private ActionBarDrawerToggle mDrawerListener;
 
     private HomePageFragment mHomePageFragment;
     private KnowledgeHierarchyFragment mKnowledgeHierarchyFragment;
@@ -77,14 +80,15 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
-        // StatusBarUtil.setStatusColor(getWindow(), ContextCompat.getColor(this, R.color.colorPrimary), 1f);
+        StatusBarUtil.setStatusColor(getWindow(), ContextCompat.getColor(this, R.color.colorPrimary), 1f);
 
-        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        mDrawerLayout.addDrawerListener(actionBarDrawerToggle);
-        actionBarDrawerToggle.syncState();
+        mDrawerListener = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        mDrawerLayout.addDrawerListener(mDrawerListener);
+        mDrawerListener.syncState();
 
         mNavigationView.getMenu().findItem(R.id.id_menu_login).setOnMenuItemClickListener(this);
         mNavigationView.getMenu().findItem(R.id.id_menu_about).setOnMenuItemClickListener(this);
+        mNavigationView.getMenu().findItem(R.id.id_menu_setting).setOnMenuItemClickListener(this);
         mNavigationView.getMenu().findItem(R.id.id_menu_favorite).setOnMenuItemClickListener(this);
         mNavigationView.setNavigationItemSelectedListener(this);
 
@@ -103,13 +107,19 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         } else {
             mShowFragment = mPresenter.getCurrentItem();
             mCurrentFragment = getTargetFragment(mShowFragment);
-            if(mShowFragment > Constants.TYPE_PROJECT)
+            if (mShowFragment > Constants.TYPE_PROJECT)
                 mBottomNavigationView.setVisibility(View.INVISIBLE);
         }
 
         mPresenter.autoLogin();
 
         mDelegate.loadMultipleRootFragment(R.id.id_content, mShowFragment, mHomePageFragment, mKnowledgeHierarchyFragment, mNavigationFragment, mProjectFragment, mFavoriteFragment, mSettingFragment);
+    }
+
+    @Override
+    protected void onDestroy() {
+        mDrawerLayout.removeDrawerListener(mDrawerListener);
+        super.onDestroy();
     }
 
     @Override
@@ -169,6 +179,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             mDrawerLayout.closeDrawer(GravityCompat.START);
             return;
         }
+        if(mCurrentFragment != mHomePageFragment) {
+            mBottomNavigationView.setVisibility(View.VISIBLE);
+            mBottomNavigationView.setSelectedItemId(R.id.tab_home_page);
+            return;
+        }
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_HOME);
         startActivity(intent);
@@ -188,7 +203,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                     startActivity(intent);
                 }
                 break;
-            case R.id.id_menu_about:
+            case R.id.id_menu_setting:
                 mDelegate.showHideFragment(mSettingFragment, mCurrentFragment);
                 mCurrentFragment = mSettingFragment;
                 mPresenter.setCurrentItem(Constants.TYPE_SETTING);

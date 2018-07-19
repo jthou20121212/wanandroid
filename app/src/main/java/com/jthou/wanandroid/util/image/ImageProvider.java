@@ -4,9 +4,6 @@ import android.content.Context;
 import android.net.Uri;
 import android.widget.ImageView;
 
-/**
- * Created by user on 2016/11/21.
- */
 public interface ImageProvider {
 
     void pause(Context context);

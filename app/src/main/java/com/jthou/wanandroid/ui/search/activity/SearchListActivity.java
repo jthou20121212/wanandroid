@@ -13,13 +13,14 @@ import android.widget.TextView;
 
 import com.jthou.wanandroid.R;
 import com.jthou.wanandroid.app.Key;
-import com.jthou.wanandroid.base.activity.BaseActivity;
+import com.jthou.wanandroid.base.activity.ParentActivity;
 import com.jthou.wanandroid.contract.search.SearchContract;
 import com.jthou.wanandroid.model.entity.Article;
 import com.jthou.wanandroid.model.entity.CollectEvent;
 import com.jthou.wanandroid.presenter.search.SearchPresenter;
 import com.jthou.wanandroid.ui.main.activity.ArticleDetailActivity;
 import com.jthou.wanandroid.ui.main.adapter.ArticleAdapter;
+import com.jthou.wanandroid.util.CommonUtils;
 import com.jthou.wanandroid.util.ItemClickSupport;
 import com.jthou.wanandroid.util.StatusBarUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -32,7 +33,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class SearchListActivity extends BaseActivity<SearchPresenter> implements SearchContract.View, OnRefreshListener, OnLoadMoreListener, ItemClickSupport.OnItemClickListener, View.OnClickListener {
+public class SearchListActivity extends ParentActivity<SearchPresenter> implements SearchContract.View, OnRefreshListener, OnLoadMoreListener, ItemClickSupport.OnItemClickListener, View.OnClickListener {
 
     @BindView(R.id.id_tv_title)
     TextView mTvTitle;
@@ -80,6 +81,8 @@ public class SearchListActivity extends BaseActivity<SearchPresenter> implements
         mRefreshLayout.setOnLoadMoreListener(this);
 
         mPresenter.getSearchList(mCurrentPage, mKeyword);
+
+        showLoading();
     }
 
     @Override
@@ -90,11 +93,17 @@ public class SearchListActivity extends BaseActivity<SearchPresenter> implements
 
     @Override
     public void showSearchResult(List<Article> articleList) {
+        showNormal();
+
         if (mCurrentPage == 0) {
             mAdapter.replaceData(articleList);
             mRefreshLayout.finishRefresh();
         } else {
-            mAdapter.addData(articleList);
+            if(articleList.size() > 0) {
+                mAdapter.addData(articleList);
+            } else {
+                CommonUtils.showSnackMessage(this, getString(R.string.no_more));
+            }
             mRefreshLayout.finishLoadMore();
         }
     }
@@ -107,6 +116,11 @@ public class SearchListActivity extends BaseActivity<SearchPresenter> implements
         if (collect == event.isCollect()) return;
         article.setCollect(event.isCollect());
         mAdapter.setData(mPosition, article);
+    }
+
+    @Override
+    public void reload() {
+        mPresenter.getSearchList(mCurrentPage = 0, mKeyword);
     }
 
     @Override

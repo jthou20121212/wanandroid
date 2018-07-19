@@ -60,6 +60,7 @@ public class KnowledgeHierarchyFragment extends ParentFragment<KnowledgeHierarch
         mRecyclerView.setLayoutManager(new LinearLayoutManager(_mActivity));
         ItemClickSupport.addTo(mRecyclerView).setOnItemClickListener(this);
         mRefreshLayout.setOnRefreshListener(this);
+        mRefreshLayout.setEnableLoadMore(false);
         mPresenter.getKnowledgeHierarchyList();
 
         showLoading();
@@ -69,11 +70,7 @@ public class KnowledgeHierarchyFragment extends ParentFragment<KnowledgeHierarch
     public void showKnowledgeHierarchyList(List<KnowledgeHierarchy> knowledgeHierarchyList) {
         showNormal();
         mRefreshLayout.finishRefresh();
-
-        // mData.addAll(knowledgeHierarchyList);
-        // mAdapter.addData(knowledgeHierarchyList);
-        mData.addAll(knowledgeHierarchyList);
-        mAdapter.notifyDataSetChanged();
+        mAdapter.replaceData(knowledgeHierarchyList);
     }
 
     @Override

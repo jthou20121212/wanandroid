@@ -22,6 +22,7 @@ import com.jthou.wanandroid.model.entity.CollectEvent;
 import com.jthou.wanandroid.model.entity.KnowledgeHierarchy;
 import com.jthou.wanandroid.presenter.main.KnowledgeHierarchyDetailPresenter;
 import com.jthou.wanandroid.ui.main.adapter.ArticleAdapter;
+import com.jthou.wanandroid.util.CommonUtils;
 import com.jthou.wanandroid.util.StatusBarUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -120,11 +121,18 @@ public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHier
     @Override
     public void showArticleList(List<Article> articleList) {
         showNormal();
-        mRefreshLayout.finishRefresh();
-        if (mCurrentPage == 0)
+
+        if (mCurrentPage == 0) {
             mAdapter.replaceData(articleList);
-        else
-            mAdapter.addData(articleList);
+            mRefreshLayout.finishRefresh();
+        } else {
+            if(articleList.size() > 0) {
+                mAdapter.addData(articleList);
+            } else {
+                CommonUtils.showSnackMessage(this, getString(R.string.no_more));
+            }
+            mRefreshLayout.finishLoadMore();
+        }
     }
 
     @Override

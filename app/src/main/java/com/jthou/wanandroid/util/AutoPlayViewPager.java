@@ -77,7 +77,8 @@ public class AutoPlayViewPager extends ViewPager {
     }
 
     public void startAutoPlay() {
-        mHandler = new AutoPlayHandler(this);
+        if (mHandler == null)
+            mHandler = new AutoPlayHandler(this);
         mHandler.sendEmptyMessageDelayed(0, 3000);
     }
 
@@ -111,14 +112,6 @@ public class AutoPlayViewPager extends ViewPager {
 
     public interface OnItemClickListener {
         void onItemClick(int position);
-    }
-
-    @Override
-    protected void onDetachedFromWindow() {
-        if(mHandler != null)
-            mHandler.removeMessages(0);
-        super.onDetachedFromWindow();
-        L.e("onDetachedFromWindow");
     }
 
 }
