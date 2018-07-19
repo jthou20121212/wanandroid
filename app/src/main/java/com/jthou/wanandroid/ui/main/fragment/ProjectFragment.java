@@ -20,7 +20,6 @@ import com.jthou.wanandroid.ui.main.activity.ArticleDetailActivity;
 import com.jthou.wanandroid.ui.main.adapter.ProjectListAdapter;
 import com.jthou.wanandroid.util.CommonUtils;
 import com.jthou.wanandroid.util.ItemClickSupport;
-import com.jthou.wanandroid.util.LogHelper;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -36,7 +35,7 @@ public class ProjectFragment extends ParentFragment<ProjectPresenter> implements
     @BindView(R.id.id_tabLayout)
     TabLayout mTabLayout;
     @BindView(R.id.id_smartRefreshLayout)
-    SmartRefreshLayout mSmartRefreshLayout;
+    SmartRefreshLayout mRefreshLayout;
     @BindView(R.id.id_recyclerView)
     RecyclerView mRecyclerView;
 
@@ -63,14 +62,16 @@ public class ProjectFragment extends ParentFragment<ProjectPresenter> implements
     public void showProjectList(List<Article> articleList) {
         if (mCurrentPage == 1) {
             mAdapter.replaceData(articleList);
-            mSmartRefreshLayout.finishRefresh();
+            mRefreshLayout.finishRefresh();
+            // 处理reload的情况
+            mRefreshLayout.finishLoadMore();
         } else {
             if (articleList.size() > 0) {
                 mAdapter.addData(articleList);
             } else {
                 CommonUtils.showSnackMessage(_mActivity, getString(R.string.no_more));
             }
-            mSmartRefreshLayout.finishLoadMore();
+            mRefreshLayout.finishLoadMore();
         }
         showNormal();
     }
@@ -94,8 +95,8 @@ public class ProjectFragment extends ParentFragment<ProjectPresenter> implements
     protected void initDataAndEvent() {
         mPresenter.getProjectClassify();
 
-        mSmartRefreshLayout.setOnRefreshListener(this);
-        mSmartRefreshLayout.setOnLoadMoreListener(this);
+        mRefreshLayout.setOnRefreshListener(this);
+        mRefreshLayout.setOnLoadMoreListener(this);
 
         mData = new ArrayList<>();
         mAdapter = new ProjectListAdapter(R.layout.item_project_list, mData);
@@ -134,7 +135,7 @@ public class ProjectFragment extends ParentFragment<ProjectPresenter> implements
     public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
         mCurrentPage++;
         mPresenter.getProjectList(mCurrentPage, mCurrentProjectClassify.getId());
-        // mSmartRefreshLayout.finishLoadMore(2000);
+        // mRefreshLayout.finishLoadMore(2000);
     }
 
     @Override

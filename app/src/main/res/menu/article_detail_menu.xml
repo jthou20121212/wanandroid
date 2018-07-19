@@ -8,4 +8,18 @@
         android:title="@string/favorite"
         app:showAsAction="ifRoom" />
 
+    <item
+        android:id="@+id/id_menu_share"
+        android:icon="@drawable/ic_share_black_24dp"
+        android:orderInCategory="100"
+        android:title="@string/share"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/id_menu_browser"
+        android:icon="@drawable/ic_open_in_browser_black_24dp"
+        android:orderInCategory="100"
+        android:title="@string/open_it_with_browser"
+        app:showAsAction="never" />
+
 </menu>

@@ -16,6 +16,7 @@ import com.jthou.wanandroid.model.entity.CollectEvent;
 import com.jthou.wanandroid.presenter.main.FavoritePresenter;
 import com.jthou.wanandroid.ui.main.activity.ArticleDetailActivity;
 import com.jthou.wanandroid.ui.main.adapter.ArticleAdapter;
+import com.jthou.wanandroid.util.CommonUtils;
 import com.jthou.wanandroid.util.ItemClickSupport;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -80,16 +81,21 @@ public class FavoriteFragment extends ParentFragment<FavoritePresenter> implemen
 
     @Override
     public void showFavoriteArticleList(List<Article> data) {
-        mRefreshLayout.finishRefresh();
-        mRefreshLayout.finishLoadMore();
-
-        showNormal();
-
         if (mCurrentPage == 0) {
             mAdapter.replaceData(data);
+            mRefreshLayout.finishRefresh();
+            // 处理reload的情况
+            mRefreshLayout.finishLoadMore();
         } else {
-            mAdapter.addData(data);
+            if(data.size() > 0) {
+                mAdapter.addData(data);
+            } else {
+                CommonUtils.showSnackMessage(_mActivity, getString(R.string.no_more));
+            }
+            mRefreshLayout.finishLoadMore();
         }
+
+        showNormal();
     }
 
     @Override
@@ -105,11 +111,7 @@ public class FavoriteFragment extends ParentFragment<FavoritePresenter> implemen
 
     @Override
     public void reload() {
-//        mPresenter.getFavoriteArticleList(mCurrentPage);
-//
-//        showLoading();
-
-        mRefreshLayout.autoRefresh();
+        mPresenter.getFavoriteArticleList(mCurrentPage = 0);
     }
 
     @Override

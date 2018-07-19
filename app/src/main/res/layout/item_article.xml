@@ -33,8 +33,7 @@
                 android:drawablePadding="@dimen/dp_5"
                 android:drawableStart="@drawable/icon_author"
                 android:gravity="center"
-                android:textColor="@color/comment_text"
-                tools:text="Carson_Ho" />
+                android:textColor="@color/comment_text" />
 
             <TextView
                 android:id="@+id/item_search_pager_chapterName"
@@ -44,11 +43,10 @@
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@id/item_search_pager_author"
                 android:gravity="end"
-                android:textColor="@color/colorPrimaryOverlay"
-                tools:text="四大组件/handler" />
+                android:textColor="@color/colorPrimaryOverlay" />
         </RelativeLayout>
 
-        <TextView
+        <com.jthou.wanandroid.util.weight.JustifyTextView
             android:id="@+id/item_search_pager_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

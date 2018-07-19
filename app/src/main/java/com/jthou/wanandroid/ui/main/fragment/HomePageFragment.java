@@ -140,6 +140,8 @@ public class HomePageFragment extends ParentFragment<HomePagerPresenter> impleme
         if (mCurrentPage == 0) {
             mAdapter.replaceData(data);
             mRefreshLayout.finishRefresh();
+            // 处理reload的情况
+            mRefreshLayout.finishLoadMore();
         } else {
             if(data.size() > 0) {
                 mAdapter.addData(data);

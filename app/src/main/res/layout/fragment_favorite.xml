@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/dp_72">
+    android:background="@color/item_background" >
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/normal_view"

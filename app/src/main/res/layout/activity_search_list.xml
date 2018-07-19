@@ -1,11 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/normal_view"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.jthou.wanandroid.ui.search.activity.SearchListActivity">
+    android:layout_height="match_parent">
 
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/id_appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:elevation="@dimen/dp_0">
 
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/id_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:gravity="center"
+            android:background="?attr/colorPrimaryDark"
+            app:layout_scrollFlags="scroll|enterAlways">
 
-</android.support.constraint.ConstraintLayout>
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/id_tv_title"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_16"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/id_smartRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        app:layout_behavior="@string/behavior_appbar_layout">
+
+        <com.scwang.smartrefresh.header.DropBoxHeader
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/id_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white" />
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+</android.support.design.widget.CoordinatorLayout>

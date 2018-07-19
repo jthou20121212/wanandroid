@@ -1,3 +1,4 @@
+// apply plugin: 'com.tencent.tinker.patch'
 apply plugin: 'com.android.application'
 apply plugin: 'com.jakewharton.butterknife'
 
@@ -97,4 +98,6 @@ dependencies {
     compile 'com.github.arimorty:floatingsearchview:2.1.1'
 
     compile 'com.github.githubwing:ByeBurger:1.2.3'
+
+    // compile('com.tencent.tinker:tinker-android-lib:1.9.1')
 }

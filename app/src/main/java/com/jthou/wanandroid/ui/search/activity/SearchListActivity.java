@@ -98,6 +98,7 @@ public class SearchListActivity extends ParentActivity<SearchPresenter> implemen
         if (mCurrentPage == 0) {
             mAdapter.replaceData(articleList);
             mRefreshLayout.finishRefresh();
+            mRefreshLayout.finishLoadMore();
         } else {
             if(articleList.size() > 0) {
                 mAdapter.addData(articleList);

@@ -1,20 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingTop="@dimen/dp_8"
     android:paddingLeft="@dimen/dp_12"
     android:paddingRight="@dimen/dp_12">
 
     <com.jthou.wanandroid.util.AutoPlayViewPager
         android:id="@+id/id_viewPager"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_gravity="center" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="H,9:5"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <LinearLayout
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_gravity="bottom"
         android:background="#44000000"
         android:gravity="center_vertical">
 
@@ -24,15 +30,15 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_10"
             android:layout_weight="1"
-            android:textColor="#999999" />
+            android:textColor="@android:color/white" />
 
         <TextView
             android:id="@+id/id_tv_index"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/dp_10"
-            android:textColor="#999999" />
+            android:textColor="@android:color/white" />
 
     </LinearLayout>
 
-</FrameLayout>
+</android.support.constraint.ConstraintLayout>

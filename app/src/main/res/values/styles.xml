@@ -5,9 +5,6 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@android:color/transparent</item>
         <item name="android:windowAnimationStyle">@style/windowAnimation</item>
-        <!-- Set menu background and text color -->
-        <item name="android:itemBackground">@color/item_background</item>
-        <item name="android:textColor">@color/title_black</item>
         // 沉浸状态栏
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowTranslucentStatus">true</item>

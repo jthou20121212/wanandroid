@@ -120,11 +120,11 @@ public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHier
 
     @Override
     public void showArticleList(List<Article> articleList) {
-        showNormal();
-
         if (mCurrentPage == 0) {
             mAdapter.replaceData(articleList);
             mRefreshLayout.finishRefresh();
+            // 处理reload的情况
+            mRefreshLayout.finishLoadMore();
         } else {
             if(articleList.size() > 0) {
                 mAdapter.addData(articleList);
@@ -133,6 +133,8 @@ public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHier
             }
             mRefreshLayout.finishLoadMore();
         }
+
+        showNormal();
     }
 
     @Override
