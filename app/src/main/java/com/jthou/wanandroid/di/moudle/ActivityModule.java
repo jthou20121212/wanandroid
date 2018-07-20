@@ -32,4 +32,7 @@ public abstract class ActivityModule {
     @ContributesAndroidInjector
     abstract SearchListActivity contributesSearchListActivityInjector();
 
+//    @ContributesAndroidInjector
+//    abstract AboutFragment contributesAboutActivityInjector();
+
 }

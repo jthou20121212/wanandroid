@@ -104,13 +104,18 @@ public class ArticleDetailActivity extends BaseActivity<ArticleDetailPresenter> 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.article_detail_menu, menu);
-        mFavoriteMenu = menu.findItem(R.id.id_menu_favorite);
-        boolean isFavorite = getIntent().getBooleanExtra(Key.ARTICLE_IS_FAVORITE, false);
-        if (isFavorite)
-            mFavoriteMenu.setIcon(R.drawable.icon_favorite);
-        else
-            mFavoriteMenu.setIcon(R.drawable.ic_toolbar_like_n);
+        boolean isBanner = getIntent().getBooleanExtra(Key.IT_IS_BANNER, false);
+        if (isBanner) {
+            getMenuInflater().inflate(R.menu.article_detail_banner_menu, menu);
+        } else {
+            getMenuInflater().inflate(R.menu.article_detail_menu, menu);
+            mFavoriteMenu = menu.findItem(R.id.id_menu_favorite);
+            boolean isFavorite = getIntent().getBooleanExtra(Key.ARTICLE_IS_FAVORITE, false);
+            if (isFavorite)
+                mFavoriteMenu.setIcon(R.drawable.icon_favorite);
+            else
+                mFavoriteMenu.setIcon(R.drawable.ic_toolbar_like_n);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 

@@ -9,6 +9,7 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jthou.wanandroid.R;
 import com.jthou.wanandroid.app.Constants;
+import com.jthou.wanandroid.app.Key;
 import com.jthou.wanandroid.base.fragment.ParentFragment;
 import com.jthou.wanandroid.contract.main.KnowledgeHierarchyContract;
 import com.jthou.wanandroid.model.entity.KnowledgeHierarchy;
@@ -81,7 +82,7 @@ public class KnowledgeHierarchyFragment extends ParentFragment<KnowledgeHierarch
     @Override
     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
         Intent intent = new Intent(_mActivity, KnowledgeHierarchyDetailActivity.class);
-        intent.putExtra(Constants.IT_KNOWLEDGE_HIERARCHY, mData.get(position));
+        intent.putExtra(Key.IT_KNOWLEDGE_HIERARCHY, mData.get(position));
         startActivity(intent);
     }
 

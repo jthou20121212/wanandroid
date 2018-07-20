@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -111,7 +112,8 @@ public class HomePageFragment extends ParentFragment<HomePagerPresenter> impleme
             if (mBannerData == null || mBannerData.isEmpty()) return;
             int index = position % mBannerData.size();
             Intent intent = new Intent(_mActivity, ArticleDetailActivity.class);
-            // TODO id, isCollect
+            intent.putExtra(Key.IT_IS_BANNER, true);
+            intent.putExtra(Key.ARTICLE_ID, mBannerData.get(index).getId());
             intent.putExtra(Key.ARTICLE_LINK, mBannerData.get(index).getUrl());
             intent.putExtra(Key.ARTICLE_TITLE, mBannerData.get(index).getTitle());
             startActivity(intent);

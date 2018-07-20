@@ -1,7 +1,6 @@
 package com.jthou.wanandroid.ui.main.activity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -20,10 +19,8 @@ import android.view.View;
 
 import com.jthou.wanandroid.R;
 import com.jthou.wanandroid.app.Constants;
-import com.jthou.wanandroid.base.BaseView;
 import com.jthou.wanandroid.base.activity.BaseActivity;
-import com.jthou.wanandroid.base.fragment.ParentFragment;
-import com.jthou.wanandroid.base.presenter.ParentPresenter;
+import com.jthou.wanandroid.base.fragment.AbstractFragment;
 import com.jthou.wanandroid.contract.main.MainContract;
 import com.jthou.wanandroid.presenter.main.MainPresenter;
 import com.jthou.wanandroid.ui.login.LoginActivity;
@@ -36,7 +33,6 @@ import com.jthou.wanandroid.ui.main.fragment.SearchFragment;
 import com.jthou.wanandroid.ui.main.fragment.SettingFragment;
 import com.jthou.wanandroid.util.BottomNavigationViewHelper;
 import com.jthou.wanandroid.util.CommonUtils;
-import com.jthou.wanandroid.util.LogHelper;
 import com.jthou.wanandroid.util.StatusBarUtil;
 
 import butterknife.BindView;
@@ -62,8 +58,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     private ProjectFragment mProjectFragment;
     private SearchFragment mSearchFragment;
     private SettingFragment mSettingFragment;
+    private AboutFragment mAboutFragment;
 
-    private ParentFragment mCurrentFragment;
+    private AbstractFragment mCurrentFragment;
 
     private int mShowFragment = Constants.TYPE_MAIN_PAGER;
 
@@ -101,6 +98,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mFavoriteFragment = FavoriteFragment.newInstance();
         mProjectFragment = ProjectFragment.newInstance();
         mSettingFragment = SettingFragment.newInstance();
+        mAboutFragment = AboutFragment.newInstance();
 
         if (savedInstanceState == null) {
             mPresenter.setNightModeState(false);
@@ -113,7 +111,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
         mPresenter.autoLogin();
 
-        mDelegate.loadMultipleRootFragment(R.id.id_content, mShowFragment, mHomePageFragment, mKnowledgeHierarchyFragment, mNavigationFragment, mProjectFragment, mFavoriteFragment, mSettingFragment);
+        mDelegate.loadMultipleRootFragment(R.id.id_content, mShowFragment, mHomePageFragment, mKnowledgeHierarchyFragment, mNavigationFragment, mProjectFragment, mFavoriteFragment, mSettingFragment, mAboutFragment);
     }
 
     @Override
@@ -179,7 +177,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             mDrawerLayout.closeDrawer(GravityCompat.START);
             return;
         }
-        if(mCurrentFragment != mHomePageFragment) {
+        if (mCurrentFragment != mHomePageFragment) {
             mBottomNavigationView.setVisibility(View.VISIBLE);
             mBottomNavigationView.setSelectedItemId(R.id.tab_home_page);
             return;
@@ -222,6 +220,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                     startActivity(it);
                 }
                 break;
+            case R.id.id_menu_about:
+                mDelegate.showHideFragment(mAboutFragment, mCurrentFragment);
+                mCurrentFragment = mAboutFragment;
+                mPresenter.setCurrentItem(Constants.TYPE_ABOUT);
+                mDrawerLayout.closeDrawers();
+                mBottomNavigationView.setVisibility(View.INVISIBLE);
+                break;
             default:
         }
         Menu menu = mNavigationView.getMenu();
@@ -255,7 +260,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         recreate();
     }
 
-    private ParentFragment<? extends ParentPresenter<? extends BaseView>> getTargetFragment(int item) {
+    private AbstractFragment getTargetFragment(int item) {
         switch (item) {
             case Constants.TYPE_MAIN_PAGER:
                 return mHomePageFragment;
@@ -269,6 +274,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 return mFavoriteFragment;
             case Constants.TYPE_SETTING:
                 return mSettingFragment;
+            case Constants.TYPE_ABOUT:
+                return mAboutFragment;
         }
         return mHomePageFragment;
     }

@@ -63,7 +63,7 @@ public class KnowledgeHierarchyDetailActivity extends BaseActivity<KnowledgeHier
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        KnowledgeHierarchy knowledgeHierarchy = getIntent().getParcelableExtra(Constants.IT_KNOWLEDGE_HIERARCHY);
+        KnowledgeHierarchy knowledgeHierarchy = getIntent().getParcelableExtra(Key.IT_KNOWLEDGE_HIERARCHY);
         mToolbar.setTitle(knowledgeHierarchy.getName());
         setSupportActionBar(mToolbar);
         ActionBar actionBar = getSupportActionBar();

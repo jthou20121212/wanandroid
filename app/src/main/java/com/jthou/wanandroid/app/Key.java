@@ -1,9 +1,5 @@
 package com.jthou.wanandroid.app;
 
-/**
- * Created by user on 2018/5/22.
- */
-
 public class Key {
 
     public static final String ARTICLE_ID = "article_id";
@@ -15,6 +11,10 @@ public class Key {
     public static final String ARTICLE_IS_FAVORITE = "article_is_favorite";
 
     public static final String IT_KEYWORD = "it_keyword";
+
+    public static final String IT_KNOWLEDGE_HIERARCHY = "it_knowledge_hierarchy";
+
+    public static final String IT_IS_BANNER = "it_is_banner";
 
     public static final String SP_AUTO_CACHE = "sp_auto_cache";
 

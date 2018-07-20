@@ -22,8 +22,6 @@ public class Constants {
     public static final int TYPE_PROJECT = 3;
     public static final int TYPE_COLLECT = 4;
     public static final int TYPE_SETTING = 5;
+    public static final int TYPE_ABOUT = 6;
 
-
-    // Intent key
-    public static final String IT_KNOWLEDGE_HIERARCHY = "it_knowledge_hierarchy";
 }

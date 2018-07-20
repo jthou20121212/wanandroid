@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="@dimen/dp_8"
     android:paddingLeft="@dimen/dp_12"
-    android:paddingRight="@dimen/dp_12">
+    android:paddingRight="@dimen/dp_12"
+    android:paddingTop="@dimen/dp_8">
 
     <com.jthou.wanandroid.util.AutoPlayViewPager
         android:id="@+id/id_viewPager"
@@ -15,30 +15,27 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
-    <LinearLayout
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/id_tv_title"
+        android:layout_width="wrap_content"
         android:layout_height="45dp"
         android:background="#44000000"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/dp_10"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
-        <TextView
-            android:id="@+id/id_tv_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:layout_weight="1"
-            android:textColor="@android:color/white" />
-
-        <TextView
-            android:id="@+id/id_tv_index"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/dp_10"
-            android:textColor="@android:color/white" />
-
-    </LinearLayout>
+    <TextView
+        android:id="@+id/id_tv_index"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:background="#44000000"
+        android:gravity="center_vertical|right"
+        android:paddingRight="@dimen/dp_10"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/id_tv_title"
+        app:layout_constraintRight_toRightOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

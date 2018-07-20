@@ -26,14 +26,6 @@ public class ArticleAdapter extends BaseQuickAdapter<Article, BaseViewHolder> {
         super(layoutResId, data);
     }
 
-    public ArticleAdapter(@Nullable List<Article> data) {
-        super(data);
-    }
-
-    public ArticleAdapter(int layoutResId) {
-        super(layoutResId);
-    }
-
     @Override
     protected void convert(BaseViewHolder helper, Article article) {
         if (!TextUtils.isEmpty(article.getTitle())) {
