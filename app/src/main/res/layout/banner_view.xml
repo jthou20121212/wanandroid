@@ -15,27 +15,34 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
-    <TextView
-        android:id="@+id/id_tv_title"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="#44000000"
+        android:background="@color/banner_text_background"
         android:gravity="center_vertical"
-        android:paddingLeft="@dimen/dp_10"
-        android:textColor="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent">
 
-    <TextView
-        android:id="@+id/id_tv_index"
-        android:layout_width="0dp"
-        android:layout_height="45dp"
-        android:background="#44000000"
-        android:gravity="center_vertical|right"
-        android:paddingRight="@dimen/dp_10"
-        android:textColor="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/id_tv_title"
-        app:layout_constraintRight_toRightOf="parent" />
+        <TextView
+            android:id="@+id/id_tv_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_10"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/id_tv_index"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="@dimen/dp_10"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

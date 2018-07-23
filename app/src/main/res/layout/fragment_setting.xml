@@ -120,7 +120,9 @@
                         android:button="@drawable/abc_btn_check_material"
                         android:buttonTint="@color/colorAccent" />
                 </LinearLayout>
+
             </LinearLayout>
+
         </android.support.v7.widget.CardView>
 
         <TextView
@@ -146,7 +148,6 @@
                     android:id="@+id/ll_setting_feedback"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:foreground="?android:attr/selectableItemBackground"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:padding="12dp">
@@ -173,7 +174,6 @@
                     android:id="@+id/ll_setting_clear"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:foreground="?android:attr/selectableItemBackground"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:padding="12dp">
@@ -206,7 +206,6 @@
                     android:id="@+id/ll_setting_update"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:foreground="?android:attr/selectableItemBackground"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:padding="12dp">

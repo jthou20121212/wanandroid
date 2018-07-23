@@ -97,7 +97,8 @@ public class HomePageFragment extends ParentFragment<HomePagerPresenter> impleme
             @Override
             public void onPageSelected(int position) {
                 if (!isAdded()) return;
-                if (mBannerData == null || mBannerData.isEmpty()) return;
+                if (mBannerData == null) return;
+                if (mBannerData.isEmpty()) return;
                 int index = position % mBannerData.size();
                 tvTitle.setText(mBannerData.get(index).getTitle());
                 tvIndex.setText(getString(R.string.index_count, index + 1, mBannerData.size()));
@@ -109,7 +110,8 @@ public class HomePageFragment extends ParentFragment<HomePagerPresenter> impleme
             }
         });
         mViewPager.setOnItemClickListener(position -> {
-            if (mBannerData == null || mBannerData.isEmpty()) return;
+            if (mBannerData == null) return;
+            if (mBannerData.isEmpty()) return;
             int index = position % mBannerData.size();
             Intent intent = new Intent(_mActivity, ArticleDetailActivity.class);
             intent.putExtra(Key.IT_IS_BANNER, true);
@@ -145,7 +147,7 @@ public class HomePageFragment extends ParentFragment<HomePagerPresenter> impleme
             // 处理reload的情况
             mRefreshLayout.finishLoadMore();
         } else {
-            if(data.size() > 0) {
+            if (data.size() > 0) {
                 mAdapter.addData(data);
             } else {
                 CommonUtils.showSnackMessage(_mActivity, getString(R.string.no_more));

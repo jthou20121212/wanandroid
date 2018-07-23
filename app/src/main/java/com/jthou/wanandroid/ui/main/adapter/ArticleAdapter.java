@@ -39,7 +39,6 @@ public class ArticleAdapter extends BaseQuickAdapter<Article, BaseViewHolder> {
         if (!TextUtils.isEmpty(article.getAuthor())) {
             helper.setText(R.id.item_search_pager_author, article.getAuthor());
         }
-//        setTag(helper, article);
         // 收藏页面只有chapterName
         if(isCollectPage)
             helper.setText(R.id.item_search_pager_chapterName, article.getChapterName());
@@ -49,15 +48,6 @@ public class ArticleAdapter extends BaseQuickAdapter<Article, BaseViewHolder> {
         if (!TextUtils.isEmpty(article.getNiceDate())) {
             helper.setText(R.id.item_search_pager_niceDate, article.getNiceDate());
         }
-//        if (isSearchPage) {
-//            CardView cardView = helper.getView(R.id.item_search_pager_group);
-//            cardView.setForeground(null);
-//            if (isNightMode) {
-//                cardView.setBackground(ContextCompat.getDrawable(mContext, R.color.card_color));
-//            } else {
-//                cardView.setBackground(ContextCompat.getDrawable(mContext, R.drawable.selector_search_item_bac));
-//            }
-//        }
     }
 
 }

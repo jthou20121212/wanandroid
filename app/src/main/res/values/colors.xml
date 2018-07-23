@@ -31,5 +31,7 @@
     <color name="comment_line">#dddddd</color>
     <color name="article_background">#ffffff</color>
     <color name="item_background">#ffffff</color>
+    <color name="banner_text_background">#44000000</color>
+    <color name="background">@android:color/white</color>
 
 </resources>

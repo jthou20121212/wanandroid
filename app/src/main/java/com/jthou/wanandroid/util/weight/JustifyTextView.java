@@ -35,7 +35,9 @@ public class JustifyTextView extends AppCompatTextView {
                                                                     // 文本自动换行
         String[] texts = autoSplit(txt, getPaint(), getWidth() - getPaddingLeft() - getPaddingRight());
 
-        getPaint().linkColor = R.color.comment_text;
+        int color = getTextColors().getColorForState(getDrawableState(), 0);
+        getPaint().setColor(color);
+        getPaint().setTextSize(getTextSize());
 
         for (String text : texts) {
             if (TextUtils.isEmpty(text))

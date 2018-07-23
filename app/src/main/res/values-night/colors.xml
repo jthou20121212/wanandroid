@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#444444</color>
+    <color name="colorPrimary">@android:color/black</color>
     <color name="colorPrimaryDark">#666666</color>
     <color name="colorAccent">#FF4081</color>
 
@@ -20,9 +20,8 @@
     <color name="gray_eee">#EEEEEE</color>
     <color name="gray_666">#FF666666</color>
 
-    <color name="drawer_item_bg_p">#777777
-    </color>
-    <color name="drawer_item_bg_n">#999999</color>
+    <color name="drawer_item_bg_p">#777777</color>
+    <color name="drawer_item_bg_n">@android:color/black</color>
 
     <color name="shallow_grey">#FF757575</color>
     <color name="deep_grey">#e6e6e6</color>
@@ -30,7 +29,9 @@
 
     <color name="colorBackground">#0F1010</color>
     <color name="comment_line">#202124</color>
-    <color name="article_background">#000000</color>
+    <color name="article_background">@android:color/black</color>
     <color name="item_background">#000000</color>
+    <color name="banner_text_background">#44ffffff</color>
+    <color name="background">#444444</color>
 
 </resources>
