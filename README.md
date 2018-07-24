@@ -72,7 +72,7 @@ to do
 * 分享
 
 <br />
-[下载安装包](https://github.com/jthou20121212/wanandroid/blob/master/apk/app-debug.apk)
+[下载安装包](https://github.com/jthou20121212/wanandroid/blob/master/apk/)
 <br /><br /> 
 邮箱：jthou20121212@gmail.com
 <br /><br />
