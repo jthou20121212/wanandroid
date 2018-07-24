@@ -63,4 +63,13 @@ UI
 [ByeBurger](https://github.com/githubwing/ByeBurger)
 <br />
 [ImmersionBar](https://github.com/gyf-dev/ImmersionBar)
+to do
+<br />
+* 调整ui，完善夜间模式，等我找到设计师
+* 热修复，等待服务器开发完成
+* 版本更新，等待服务器开发完成
+* 分享
+<br />
 
+欢迎 start，fork，pr，Issue
+找工作
