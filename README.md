@@ -1,37 +1,38 @@
 # wanandroid
-API：
+api：
 <br />
 [wanandroid](http://www.wanandroid.com )
 <br />
-参考：
 <br />
-https://github.com/codeestX/GeekNews
+app：
 <br />
-https://github.com/JsonChao/Awesome-WanAndroid
+[GeekNews](https://github.com/codeestX/GeekNews)Dagger2配合MVP的架构，部分页面
+<br />
+[Awesome-WanAndroid](https://github.com/JsonChao/Awesome-WanAndroid)dagger.android配合mvp架构，部分页面，动画，图标
 <br />
 <br />
 
 rx
 <br />
-https://github.com/ReactiveX/RxJava
+[rxjava](https://github.com/ReactiveX/RxJava)
 <br />
-https://github.com/ReactiveX/RxAndroid
+[rxandroid](https://github.com/ReactiveX/RxAndroid)
 <br />
 <br />
 
 di
 <br />
-https://github.com/google/dagger
+[dagger](https://github.com/google/dagger)
 <br />
-https://github.com/JakeWharton/butterknife
+[butterknife](https://github.com/JakeWharton/butterknife)
 <br />
 <br />
 
 网络
 <br />
-https://github.com/square/retrofit
+[retrofit](https://github.com/square/retrofit)
 <br />
-https://github.com/square/okhttp
+[okhttp](https://github.com/square/okhttp)
 <br />
 <br />
 
