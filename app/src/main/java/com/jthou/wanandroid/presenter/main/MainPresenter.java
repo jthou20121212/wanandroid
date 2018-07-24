@@ -21,11 +21,11 @@ public class MainPresenter extends ParentPresenter<MainContract.View> implements
         super(mDataManager);
     }
 
-    @Override
-    public void getUsername() {
+    private void showLoginInfo(boolean isAutoLogin) {
         if (mView == null) return;
         String username = mDataManager.getUsername();
-        mView.showUsername(username);
+        mView.showLoginView();
+        mView.showUsername(username, isAutoLogin);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class MainPresenter extends ParentPresenter<MainContract.View> implements
     }
 
     private void registerEvent() {
-        addSubscribe(RxBus.getDefault().toFlowable(LoginEvent.class).subscribe(loginEvent -> getUsername()));
+        addSubscribe(RxBus.getDefault().toFlowable(LoginEvent.class).subscribe(loginEvent -> showLoginInfo(loginEvent.isAutoLogin())));
 
         addSubscribe(RxBus.getDefault().toFlowable(NightModeEvent.class).subscribe(nightModeEvent -> mView.switchNightMode(nightModeEvent.getNightMode())));
     }
@@ -52,8 +52,9 @@ public class MainPresenter extends ParentPresenter<MainContract.View> implements
                 .subscribeWith(new BaseObserver<LoginInfo>(mView, null, false, false) {
                     @Override
                     public void onNext(LoginInfo loginInfo) {
-                        mView.showUsername(loginInfo.getUsername());
-                        mView.showAutoLogin();
+                        LoginEvent loginEvent = new LoginEvent();
+                        loginEvent.setAutoLogin(true);
+                        RxBus.getDefault().post(loginEvent);
                     }
                 }));
     }
@@ -69,13 +70,15 @@ public class MainPresenter extends ParentPresenter<MainContract.View> implements
     }
 
     @Override
-    public boolean getNightModeState() {
-        return mDataManager.nightMode();
+    public void setNightModeState(boolean nightModeState) {
+        mDataManager.setNightMode(nightModeState);
     }
 
     @Override
-    public void setNightModeState(boolean nightModeState) {
-        mDataManager.setNightMode(nightModeState);
+    public void logout() {
+        mDataManager.logout();
+        if(mView != null && mView.isShow())
+            mView.showLogoutView();
     }
 
     @Override

@@ -1,15 +1,19 @@
 package com.jthou.wanandroid.ui.main.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -22,6 +26,7 @@ import com.jthou.wanandroid.app.Constants;
 import com.jthou.wanandroid.base.activity.BaseActivity;
 import com.jthou.wanandroid.base.fragment.AbstractFragment;
 import com.jthou.wanandroid.contract.main.MainContract;
+import com.jthou.wanandroid.model.network.CookiesManager;
 import com.jthou.wanandroid.presenter.main.MainPresenter;
 import com.jthou.wanandroid.ui.login.LoginActivity;
 import com.jthou.wanandroid.ui.main.fragment.FavoriteFragment;
@@ -87,7 +92,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mNavigationView.getMenu().findItem(R.id.id_menu_about).setOnMenuItemClickListener(this);
         mNavigationView.getMenu().findItem(R.id.id_menu_setting).setOnMenuItemClickListener(this);
         mNavigationView.getMenu().findItem(R.id.id_menu_favorite).setOnMenuItemClickListener(this);
+        mNavigationView.getMenu().findItem(R.id.id_menu_logout).setOnMenuItemClickListener(this);
         mNavigationView.setNavigationItemSelectedListener(this);
+        @SuppressLint("ResourceType")
+        ColorStateList colorStateList = ContextCompat.getColorStateList(this, R.drawable.selector_drawer_item_text_color);
+        mNavigationView.setItemIconTintList(colorStateList);
 
         mBottomNavigationView.setOnNavigationItemSelectedListener(this);
         BottomNavigationViewHelper.disableShiftMode(mBottomNavigationView);
@@ -227,6 +236,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 mDrawerLayout.closeDrawers();
                 mBottomNavigationView.setVisibility(View.INVISIBLE);
                 break;
+            case R.id.id_menu_logout:
+                showLogoutDialog();
+                break;
             default:
         }
         Menu menu = mNavigationView.getMenu();
@@ -240,14 +252,17 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     }
 
     @Override
-    public void showUsername(String username) {
+    public void showUsername(String username, boolean isAutoLogin) {
         if (TextUtils.isEmpty(username)) return;
         mNavigationView.getMenu().findItem(R.id.id_menu_login).setTitle(username);
+        String msg = isAutoLogin ? getString(R.string.auto_login_success) : getString(R.string.login_success);
+        CommonUtils.showSnackMessage(this, msg);
     }
 
     @Override
-    public void showAutoLogin() {
-        CommonUtils.showSnackMessage(this, getString(R.string.auto_login_success));
+    public void showLoginView() {
+        MenuItem item = mNavigationView.getMenu().findItem(R.id.id_menu_logout);
+        item.setVisible(true);
     }
 
     @Override
@@ -258,6 +273,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
         recreate();
+    }
+
+    @Override
+    public void showLogoutView() {
+        MenuItem item = mNavigationView.getMenu().findItem(R.id.id_menu_logout);
+        item.setVisible(false);
+        mNavigationView.getMenu().findItem(R.id.id_menu_login).setTitle(R.string.login);
     }
 
     private AbstractFragment getTargetFragment(int item) {
@@ -278,6 +300,18 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 return mAboutFragment;
         }
         return mHomePageFragment;
+    }
+
+    private void showLogoutDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.prompt);
+        builder.setMessage(R.string.prompt_message);
+        builder.setNegativeButton(R.string.cancel, null);
+        builder.setPositiveButton(R.string.confirm, (dialog, which) -> {
+            mPresenter.logout();
+            CookiesManager.clearAllCookies();
+        });
+        builder.show();
     }
 
 }

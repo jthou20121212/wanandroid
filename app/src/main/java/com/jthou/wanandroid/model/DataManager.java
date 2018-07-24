@@ -166,4 +166,9 @@ public class DataManager implements DbHelper, HttpHelper, PreferenceHelper {
         return mPreferenceHelper.getCurrentItem();
     }
 
+    @Override
+    public void logout() {
+        mPreferenceHelper.logout();
+    }
+
 }

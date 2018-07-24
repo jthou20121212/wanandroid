@@ -16,16 +16,13 @@ public interface MainContract {
 
     interface View extends BaseView {
 
-        void showUsername(String username);
-
-        void showAutoLogin();
+        void showUsername(String username, boolean isAutoLogin);
 
         void switchNightMode(boolean nightMode);
+
     }
 
     interface Presenter extends BasePresenter<View> {
-
-        void getUsername();
 
         boolean getLoginState();
 
@@ -35,9 +32,10 @@ public interface MainContract {
 
         void setCurrentItem(int currentItem);
 
-        boolean getNightModeState();
-
         void setNightModeState(boolean nightModeState);
+
+        void logout();
+
     }
 
 }

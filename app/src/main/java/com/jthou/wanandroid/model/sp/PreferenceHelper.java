@@ -34,4 +34,6 @@ public interface PreferenceHelper {
 
     int getCurrentItem();
 
+    void logout();
+
 }

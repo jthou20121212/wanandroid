@@ -23,6 +23,12 @@
             android:icon="@drawable/about"
             android:title="@string/about" />
 
+        <item
+            android:visible="false"
+            android:id="@+id/id_menu_logout"
+            android:icon="@drawable/about"
+            android:title="@string/logout" />
+
     </group>
 
 </menu>

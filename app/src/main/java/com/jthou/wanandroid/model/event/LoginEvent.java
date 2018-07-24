@@ -5,4 +5,14 @@ package com.jthou.wanandroid.model.event;
  */
 
 public class LoginEvent {
+
+    private boolean isAutoLogin;
+
+    public boolean isAutoLogin() {
+        return isAutoLogin;
+    }
+
+    public void setAutoLogin(boolean autoLogin) {
+        isAutoLogin = autoLogin;
+    }
 }

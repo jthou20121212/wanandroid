@@ -15,7 +15,6 @@
     <color name="deep_red">#dc3b1f</color>
     <color name="colorPrimaryOverlay">#00abff</color>
 
-    <color name="gray_ccc">#cccccc</color>
     <color name="gray_ddd">#dddddd</color>
     <color name="gray_eee">#EEEEEE</color>
     <color name="gray_666">#FF666666</color>
@@ -29,9 +28,13 @@
 
     <color name="colorBackground">#0F1010</color>
     <color name="comment_line">#202124</color>
-    <color name="article_background">@android:color/black</color>
+    <color name="article_background">#444444</color>
     <color name="item_background">#000000</color>
     <color name="banner_text_background">#44ffffff</color>
-    <color name="background">#444444</color>
+    <color name="background">@android:color/black</color>
+    <color name="navigation_view_background">@android:color/black</color>
+    <color name="drawer_item_text_color">#dddddd</color>
+    <color name="nav_item_text_color">#cccccc</color>
+    <color name="nav_item_text_color_checked">#444444</color>
 
 </resources>

@@ -92,4 +92,9 @@ public class PreferenceHelperImpl implements PreferenceHelper {
         return mPreferences.getInt(Key.SP_CURRENT_ITEM, 0);
     }
 
+    @Override
+    public void logout() {
+        mPreferences.edit().remove(Key.SP_LOGIN_STATE).remove(Key.SP_USERNAME).remove(Key.SP_PASSWORD).apply();
+    }
+
 }
