@@ -72,5 +72,4 @@ to do
 * 分享
 <br />
 
-欢迎 start，fork，pr，Issue
-找工作
+欢迎 start，fork，pr，Issue，找工作
