@@ -70,6 +70,10 @@ to do
 * 热修复，等待服务器开发完成
 * 版本更新，等待服务器开发完成
 * 分享
-<br />
-
-欢迎 start，fork，pr，Issue，找工作
+<br /><br />
+[下载](https://github.com/jthou20121212/wanandroid/tree/master/apk)
+<br /><br />
+邮箱：jthou20121212@gmail.com
+<br /><br />
+欢迎 start，fork，pr，Issue
+<br />找工作
