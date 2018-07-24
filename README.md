@@ -39,3 +39,19 @@ fragment管理
 <br />
 [lottie](https://github.com/airbnb/lottie-android)
 <br /><br />
+数据解析
+<br />
+[gson](https://github.com/google/gson)
+<br /><br />
+log
+<br />
+[logger](https://github.com/orhanobut/logger)
+<br /><br />
+流式布局
+<br />
+[flowlayout](https://github.com/hongyangAndroid/FlowLayout)
+<br /><br />
+adapter
+<br />
+[BaseRecyclerViewAdapterHelper](https://github.com/CymChad/BaseRecyclerViewAdapterHelper)
+<br /><br />
