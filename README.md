@@ -21,6 +21,9 @@ di
 <br />
 [butterknife](https://github.com/JakeWharton/butterknife)
 <br /><br />
+icon
+[iconfont](http://www.iconfont.cn)
+<br /><br />
 网络
 <br />
 [retrofit](https://github.com/square/retrofit)
@@ -35,10 +38,6 @@ fragment管理
 <br />
 [glide](https://github.com/bumptech/glide)
 <br /><br />
-动画
-<br />
-[lottie](https://github.com/airbnb/lottie-android)
-<br /><br />
 数据解析
 <br />
 [gson](https://github.com/google/gson)
@@ -47,11 +46,21 @@ log
 <br />
 [logger](https://github.com/orhanobut/logger)
 <br /><br />
-流式布局
+UI
+<br />
+[一个高度封装的 Android WebView ](https://github.com/Justson/AgentWeb)
 <br />
 [flowlayout](https://github.com/hongyangAndroid/FlowLayout)
-<br /><br />
-adapter
 <br />
 [BaseRecyclerViewAdapterHelper](https://github.com/CymChad/BaseRecyclerViewAdapterHelper)
-<br /><br />
+<br />
+[floatingsearchview](https://github.com/arimorty/floatingsearchview)
+<br />
+[lottie](https://github.com/airbnb/lottie-android)
+<br />
+[SmartRefreshLayout]https://github.com/scwang90/SmartRefreshLayout
+<br />
+[ByeBurger](https://github.com/githubwing/ByeBurger)
+<br />
+[ImmersionBar](https://github.com/gyf-dev/ImmersionBar)
+
