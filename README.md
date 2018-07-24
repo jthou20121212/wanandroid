@@ -70,6 +70,7 @@ to do
 * 热修复，等待服务器开发完成
 * 版本更新，等待服务器开发完成
 * 分享
+
 <br /><br />
 [下载安装包](https://github.com/jthou20121212/wanandroid/blob/master/apk/app-debug.apk)
 <br /><br />
