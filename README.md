@@ -26,6 +26,8 @@ di
 [retrofit](https://github.com/square/retrofit)
 <br />
 [okhttp](https://github.com/square/okhttp)
+<br /><br />
+fragment管理
 <br />
-<br />
-
+[Fragmentation](https://github.com/YoKeyword/Fragmentation)
+<br /><br />
