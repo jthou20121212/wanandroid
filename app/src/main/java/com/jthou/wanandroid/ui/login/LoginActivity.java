@@ -1,5 +1,6 @@
 package com.jthou.wanandroid.ui.login;
 
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
@@ -10,6 +11,7 @@ import com.jthou.wanandroid.contract.login.LoginContract;
 import com.jthou.wanandroid.model.entity.LoginInfo;
 import com.jthou.wanandroid.model.event.LoginEvent;
 import com.jthou.wanandroid.presenter.login.LoginPresenter;
+import com.jthou.wanandroid.ui.register.RegisterActivity;
 import com.jthou.wanandroid.util.CommonUtils;
 import com.jthou.wanandroid.util.RxBus;
 
@@ -43,6 +45,12 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     public void showLoginInfo(LoginInfo loginInfo) {
         RxBus.getDefault().post(new LoginEvent());
         onBackPressedSupport();
+    }
+
+    @OnClick(R.id.id_register)
+    public void register(View v) {
+        Intent intent = new Intent(this, RegisterActivity.class);
+        startActivity(intent);
     }
 
 }

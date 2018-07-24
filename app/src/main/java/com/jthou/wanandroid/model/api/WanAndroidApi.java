@@ -7,6 +7,7 @@ import com.jthou.wanandroid.model.entity.KnowledgeHierarchy;
 import com.jthou.wanandroid.model.entity.LoginInfo;
 import com.jthou.wanandroid.model.entity.Navigation;
 import com.jthou.wanandroid.model.entity.ProjectClassify;
+import com.jthou.wanandroid.model.entity.RegisterResult;
 import com.jthou.wanandroid.model.network.AbstractResponse;
 import com.jthou.wanandroid.model.network.BaseResponse;
 
@@ -68,5 +69,9 @@ public interface WanAndroidApi {
 
     @POST("lg/uncollect_originId/{id}/json")
     Observable<AbstractResponse<String>> cancelFavoriteArticle(@Path("id") int articleId);
+
+    @POST("user/register")
+    @FormUrlEncoded
+    Observable<RegisterResult> register(@Field("username") String username, @Field("password") String password, @Field("repassword") String repassword);
 
 }

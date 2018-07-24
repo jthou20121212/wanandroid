@@ -13,7 +13,7 @@
         android:layout_height="wrap_content" />
 
     <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/id_et_username"
+        android:id="@+id/id_ace_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="17dp"
@@ -34,10 +34,10 @@
         android:textSize="16sp"/>
 
     <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/id_et_password"
+        android:id="@+id/id_ace_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="26dp"
+        android:layout_marginBottom="17dp"
         android:layout_marginLeft="48dp"
         android:layout_marginRight="47dp"
         android:background="@drawable/layer_edittext_bg"
@@ -54,22 +54,29 @@
         android:textCursorDrawable="@drawable/cursor"
         android:textSize="16sp"/>
 
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/id_login"
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/id_ace_repassword"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="26dp"
         android:layout_marginLeft="48dp"
-        android:layout_marginRight="48dp"
-        android:layout_marginTop="26dp"
-        android:gravity="center"
-        android:clickable="true"
-        android:background="@color/colorPrimary"
-        android:text="@string/login"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"/>
+        android:layout_marginRight="47dp"
+        android:background="@drawable/layer_edittext_bg"
+        android:drawableLeft="@drawable/selector_password_ico"
+        android:drawablePadding="12dp"
+        android:ellipsize="end"
+        android:hint="@string/confirm_password"
+        android:inputType="textPassword"
+        android:maxLines="1"
+        android:paddingBottom="19dp"
+        android:singleLine="true"
+        android:textColor="#444444"
+        android:textColorHint="#cccccc"
+        android:textCursorDrawable="@drawable/cursor"
+        android:textSize="16sp"/>
 
     <android.support.v7.widget.AppCompatButton
-        android:id="@+id/id_register"
+        android:id="@+id/id_acb_register"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginLeft="48dp"

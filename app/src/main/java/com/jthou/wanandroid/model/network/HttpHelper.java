@@ -7,6 +7,7 @@ import com.jthou.wanandroid.model.entity.KnowledgeHierarchy;
 import com.jthou.wanandroid.model.entity.LoginInfo;
 import com.jthou.wanandroid.model.entity.Navigation;
 import com.jthou.wanandroid.model.entity.ProjectClassify;
+import com.jthou.wanandroid.model.entity.RegisterResult;
 
 import java.util.List;
 
@@ -52,4 +53,8 @@ public interface HttpHelper {
 
     // 取消收藏
     Observable<AbstractResponse<String>> cancelCollect(int articleId);
+
+    // 注册
+    Observable<RegisterResult> register(String username, String password, String repassword);
+
 }

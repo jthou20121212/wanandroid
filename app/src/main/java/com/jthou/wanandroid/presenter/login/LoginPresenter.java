@@ -7,6 +7,8 @@ import com.jthou.wanandroid.base.observer.BaseObserver;
 import com.jthou.wanandroid.contract.login.LoginContract;
 import com.jthou.wanandroid.model.DataManager;
 import com.jthou.wanandroid.model.entity.LoginInfo;
+import com.jthou.wanandroid.model.event.LoginEvent;
+import com.jthou.wanandroid.util.RxBus;
 import com.jthou.wanandroid.util.RxUtil;
 
 import javax.inject.Inject;
@@ -34,9 +36,13 @@ public class LoginPresenter extends ParentPresenter<LoginContract.View> implemen
                         mDataManager.savePassword(loginInfo.getPassword());
                         mDataManager.saveLoginState(true);
 
+                        LoginEvent loginEvent = new LoginEvent();
+                        RxBus.getDefault().post(loginEvent);
+
                         mView.showLoginInfo(loginInfo);
                     }
                 }));
     }
+
 
 }

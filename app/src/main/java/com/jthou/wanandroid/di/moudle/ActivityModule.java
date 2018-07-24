@@ -2,9 +2,11 @@ package com.jthou.wanandroid.di.moudle;
 
 import com.jthou.wanandroid.di.component.ActivityComponent;
 import com.jthou.wanandroid.ui.login.LoginActivity;
+import com.jthou.wanandroid.ui.main.activity.AboutFragment;
 import com.jthou.wanandroid.ui.main.activity.ArticleDetailActivity;
 import com.jthou.wanandroid.ui.main.activity.KnowledgeHierarchyDetailActivity;
 import com.jthou.wanandroid.ui.main.activity.MainActivity;
+import com.jthou.wanandroid.ui.register.RegisterActivity;
 import com.jthou.wanandroid.ui.search.activity.SearchListActivity;
 import com.jthou.wanandroid.ui.welcome.activity.WelcomeActivity;
 
@@ -32,7 +34,7 @@ public abstract class ActivityModule {
     @ContributesAndroidInjector
     abstract SearchListActivity contributesSearchListActivityInjector();
 
-//    @ContributesAndroidInjector
-//    abstract AboutFragment contributesAboutActivityInjector();
+    @ContributesAndroidInjector
+    abstract RegisterActivity contributesRegisterActivityInjector();
 
 }

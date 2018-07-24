@@ -7,6 +7,7 @@ import com.jthou.wanandroid.model.entity.KnowledgeHierarchy;
 import com.jthou.wanandroid.model.entity.LoginInfo;
 import com.jthou.wanandroid.model.entity.Navigation;
 import com.jthou.wanandroid.model.entity.ProjectClassify;
+import com.jthou.wanandroid.model.entity.RegisterResult;
 import com.jthou.wanandroid.model.network.AbstractResponse;
 import com.jthou.wanandroid.model.network.BaseResponse;
 import com.jthou.wanandroid.model.network.HttpHelper;
@@ -94,6 +95,11 @@ public class DataManager implements DbHelper, HttpHelper, PreferenceHelper {
     @Override
     public Observable<AbstractResponse<String>> cancelCollect(int articleId) {
         return mHttpHelper.cancelCollect(articleId);
+    }
+
+    @Override
+    public Observable<RegisterResult> register(String username, String password, String repassword) {
+        return mHttpHelper.register(username, password, repassword);
     }
 
     @Override

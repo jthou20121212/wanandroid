@@ -8,6 +8,7 @@ import com.jthou.wanandroid.model.entity.KnowledgeHierarchy;
 import com.jthou.wanandroid.model.entity.LoginInfo;
 import com.jthou.wanandroid.model.entity.Navigation;
 import com.jthou.wanandroid.model.entity.ProjectClassify;
+import com.jthou.wanandroid.model.entity.RegisterResult;
 
 import java.util.List;
 
@@ -87,6 +88,11 @@ public class RetrofitHelper implements HttpHelper {
     @Override
     public Observable<AbstractResponse<String>> cancelCollect(int articleId) {
         return mWanAndroidApi.cancelFavoriteArticle(articleId);
+    }
+
+    @Override
+    public Observable<RegisterResult> register(String username, String password, String repassword) {
+        return mWanAndroidApi.register(username, password, repassword);
     }
 
 }

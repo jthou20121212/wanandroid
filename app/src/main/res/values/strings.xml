@@ -33,6 +33,7 @@
         completions."
     </string>
     <string name="account_password_null_tint">用户名或密码不能为空</string>
+    <string name="password_not_same">密码不匹配</string>
 
     <string name="http_error">网络异常</string>
     <string name="unKnown_error">未知错误</string>
@@ -87,5 +88,7 @@
     <string name="cancel">取消</string>
     <string name="confirm">确定</string>
     <string name="prompt_message">鲁迅说过，好好学习，天天向上。你要退出吗?</string>
+    <string name="register">注册</string>
+    <string name="confirm_password">确认密码</string>
 
 </resources>

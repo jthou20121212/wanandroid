@@ -20,17 +20,17 @@
         android:theme="@style/AppTheme">
         <activity android:name=".ui.main.activity.MainActivity" />
         <activity android:name=".ui.welcome.activity.WelcomeActivity">
-        <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".ui.main.activity.ArticleDetailActivity" />
         <activity android:name=".ui.login.LoginActivity" />
         <activity android:name=".ui.search.activity.SearchListActivity" />
         <activity android:name=".ui.main.activity.KnowledgeHierarchyDetailActivity" />
-
+        <activity android:name=".ui.register.RegisterActivity"></activity>
     </application>
 
 </manifest>
