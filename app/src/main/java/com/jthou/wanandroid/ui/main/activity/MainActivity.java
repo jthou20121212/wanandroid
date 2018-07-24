@@ -69,6 +69,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     private int mShowFragment = Constants.TYPE_MAIN_PAGER;
 
+    private MenuItem.OnMenuItemClickListener mListener;
+
     @Override
     protected int resource() {
         return R.layout.activity_main;
@@ -88,7 +90,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mDrawerLayout.addDrawerListener(mDrawerListener);
         mDrawerListener.syncState();
 
-        mNavigationView.getMenu().findItem(R.id.id_menu_login).setOnMenuItemClickListener(this);
+        mNavigationView.getMenu().findItem(R.id.id_menu_login).setOnMenuItemClickListener(mListener = this);
         mNavigationView.getMenu().findItem(R.id.id_menu_about).setOnMenuItemClickListener(this);
         mNavigationView.getMenu().findItem(R.id.id_menu_setting).setOnMenuItemClickListener(this);
         mNavigationView.getMenu().findItem(R.id.id_menu_favorite).setOnMenuItemClickListener(this);
@@ -312,6 +314,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             CookiesManager.clearAllCookies();
         });
         builder.show();
+    }
+
+    public void toHomePage() {
+        MenuItem item = mNavigationView.getMenu().findItem(R.id.id_menu_login);
+        mListener.onMenuItemClick(item);
     }
 
 }

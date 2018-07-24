@@ -2,8 +2,10 @@ package com.jthou.wanandroid.ui.main.fragment;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -15,6 +17,7 @@ import com.jthou.wanandroid.model.entity.Article;
 import com.jthou.wanandroid.model.entity.CollectEvent;
 import com.jthou.wanandroid.presenter.main.FavoritePresenter;
 import com.jthou.wanandroid.ui.main.activity.ArticleDetailActivity;
+import com.jthou.wanandroid.ui.main.activity.MainActivity;
 import com.jthou.wanandroid.ui.main.adapter.ArticleAdapter;
 import com.jthou.wanandroid.util.CommonUtils;
 import com.jthou.wanandroid.util.ItemClickSupport;
@@ -61,6 +64,12 @@ public class FavoriteFragment extends ParentFragment<FavoritePresenter> implemen
         mData = new ArrayList<>();
         mAdapter = new ArticleAdapter(R.layout.item_article, mData);
         mAdapter.setCollectPage(true);
+        View view = LayoutInflater.from(_mActivity).inflate(R.layout.empty_view, null);
+        view.findViewById(R.id.id_tv_to).setOnClickListener(v -> {
+            MainActivity activity = (MainActivity) _mActivity;
+            activity.toHomePage();
+        });
+        mAdapter.setEmptyView(view);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(_mActivity));
         ItemClickSupport.addTo(mRecyclerView).setOnItemClickListener(this);

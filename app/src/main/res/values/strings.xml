@@ -90,5 +90,7 @@
     <string name="prompt_message">鲁迅说过，好好学习，天天向上。你要退出吗?</string>
     <string name="register">注册</string>
     <string name="confirm_password">确认密码</string>
+    <string name="to_collect">去收藏</string>
+    <string name="no_collect">没有收藏任何干货</string>
 
 </resources>
