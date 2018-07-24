@@ -31,3 +31,11 @@ fragment管理
 <br />
 [Fragmentation](https://github.com/YoKeyword/Fragmentation)
 <br /><br />
+图片处理
+<br />
+[glide](https://github.com/bumptech/glide)
+<br /><br />
+动画
+<br />
+[lottie](https://github.com/airbnb/lottie-android)
+<br /><br />
