@@ -58,7 +58,7 @@ UI
 <br />
 [lottie](https://github.com/airbnb/lottie-android)
 <br />
-[SmartRefreshLayout]https://github.com/scwang90/SmartRefreshLayout
+[SmartRefreshLayout](https://github.com/scwang90/SmartRefreshLayout)
 <br />
 [ByeBurger](https://github.com/githubwing/ByeBurger)
 <br />
