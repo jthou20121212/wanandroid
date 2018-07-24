@@ -18,9 +18,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import dagger.android.support.AndroidSupportInjection;
 
-/**
- * Created by user on 2018/5/29.
- */
+
 
 public abstract class BaseDialogFragment<T extends BasePresenter> extends AbstractDialogFragment implements BaseView {
 

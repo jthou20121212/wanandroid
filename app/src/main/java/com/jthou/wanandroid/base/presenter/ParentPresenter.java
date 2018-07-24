@@ -6,10 +6,6 @@ import com.jthou.wanandroid.model.DataManager;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
-/**
- * Created by user on 2018/5/16.
- */
-
 public class ParentPresenter<T extends BaseView> implements BasePresenter<T> {
 
     protected T mView;

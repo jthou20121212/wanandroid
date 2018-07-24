@@ -14,9 +14,7 @@ import me.yokeyword.fragmentation.SupportFragmentDelegate;
 import me.yokeyword.fragmentation.SupportHelper;
 import me.yokeyword.fragmentation.anim.FragmentAnimator;
 
-/**
- * Created by user on 2018/5/29.
- */
+
 
 public class AbstractDialogFragment extends DialogFragment implements ISupportFragment {
 

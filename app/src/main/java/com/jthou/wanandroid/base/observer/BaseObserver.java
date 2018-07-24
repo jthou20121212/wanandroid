@@ -10,12 +10,6 @@ import com.jthou.wanandroid.util.LogHelper;
 import io.reactivex.observers.ResourceObserver;
 import retrofit2.HttpException;
 
-/**
- * @param <T>
- * @author quchao
- * @date 2017/11/27
- */
-
 public abstract class BaseObserver<T> extends ResourceObserver<T> {
 
     private BaseView mView;
