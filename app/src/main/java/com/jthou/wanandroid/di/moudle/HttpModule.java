@@ -5,6 +5,7 @@ import com.jthou.wanandroid.app.Constants;
 import com.jthou.wanandroid.model.api.WanAndroidApi;
 import com.jthou.wanandroid.model.network.CookiesManager;
 import com.jthou.wanandroid.util.CommonUtils;
+import com.jthou.wanandroid.util.LogHelper;
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;
@@ -62,6 +63,7 @@ public class HttpModule {
             builder.addInterceptor(loggingInterceptor);
         }
         File cacheFile = new File(Constants.PATH_CACHE);
+        // /data/user/0/com.jthou.wanandroid/cache/data/NetCache
         Cache cache = new Cache(cacheFile, 1024 * 1024 * 50);
         Interceptor cacheInterceptor = chain -> {
             Request request = chain.request();

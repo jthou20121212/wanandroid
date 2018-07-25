@@ -1,8 +1,11 @@
 package com.jthou.wanandroid.ui.login;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.jthou.wanandroid.R;

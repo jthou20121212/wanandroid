@@ -49,12 +49,18 @@ public class MainPresenter extends ParentPresenter<MainContract.View> implements
         addSubscribe(mDataManager.login(username, password)
                 .compose(RxUtil.schedulerHelper())
                 .compose(RxUtil.handleResponse())
-                .subscribeWith(new BaseObserver<LoginInfo>(mView, null, false, false) {
+                .subscribeWith(new BaseObserver<LoginInfo>(mView, false) {
                     @Override
                     public void onNext(LoginInfo loginInfo) {
                         LoginEvent loginEvent = new LoginEvent();
                         loginEvent.setAutoLogin(true);
                         RxBus.getDefault().post(loginEvent);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mDataManager.saveLoginState(false);
+                        super.onError(e);
                     }
                 }));
     }
