@@ -50,4 +50,9 @@
         <item name="android:activityCloseExitAnimation">@anim/push_right_out</item>
     </style>
 
+    <style name="MyEditText" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/gray_ddd</item>
+        <item name="colorControlActivated">@color/gray_ddd</item>
+    </style>
+
 </resources>

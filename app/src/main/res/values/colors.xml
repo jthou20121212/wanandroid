@@ -38,5 +38,6 @@
     <color name="blue">#0000ff</color>
     <color name="drawer_item_text_color">#3F51B5</color>
     <color name="nav_item_text_color">#3F51B5</color>
+    <color name="color_control_normal">#fafafa</color>
 
 </resources>

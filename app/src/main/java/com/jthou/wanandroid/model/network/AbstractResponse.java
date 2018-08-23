@@ -31,4 +31,12 @@ public class AbstractResponse<T> {
         this.errorMsg = errorMsg;
     }
 
+    @Override
+    public String toString() {
+        return "AbstractResponse{" +
+                "data=" + data +
+                ", errorCode=" + errorCode +
+                ", errorMsg='" + errorMsg + '\'' +
+                '}';
+    }
 }

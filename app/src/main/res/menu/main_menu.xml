@@ -8,4 +8,16 @@
         android:title="@string/search"
         app:showAsAction="ifRoom" />
 
+    <item
+        android:id="@+id/id_load_patch"
+        android:icon="@drawable/icon_author"
+        android:title="加载补丁包"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/id_load_info"
+        android:icon="@drawable/icon_author"
+        android:title="打印补丁加载信息"
+        app:showAsAction="never" />
+
 </menu>

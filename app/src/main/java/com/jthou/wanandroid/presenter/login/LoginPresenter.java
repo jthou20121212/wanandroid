@@ -2,8 +2,8 @@ package com.jthou.wanandroid.presenter.login;
 
 import com.jthou.wanandroid.R;
 import com.jthou.wanandroid.app.WanAndroidApp;
-import com.jthou.wanandroid.base.presenter.ParentPresenter;
 import com.jthou.wanandroid.base.observer.BaseObserver;
+import com.jthou.wanandroid.base.presenter.ParentPresenter;
 import com.jthou.wanandroid.contract.login.LoginContract;
 import com.jthou.wanandroid.model.DataManager;
 import com.jthou.wanandroid.model.entity.LoginInfo;
@@ -12,8 +12,6 @@ import com.jthou.wanandroid.util.RxBus;
 import com.jthou.wanandroid.util.RxUtil;
 
 import javax.inject.Inject;
-
-import io.reactivex.functions.Predicate;
 
 public class LoginPresenter extends ParentPresenter<LoginContract.View> implements LoginContract.Presenter {
 

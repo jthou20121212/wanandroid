@@ -6,7 +6,6 @@ import com.jthou.wanandroid.base.observer.BaseObserver;
 import com.jthou.wanandroid.base.presenter.ParentPresenter;
 import com.jthou.wanandroid.contract.main.ArticleDetailContract;
 import com.jthou.wanandroid.model.DataManager;
-import com.jthou.wanandroid.model.entity.LoginInfo;
 import com.jthou.wanandroid.model.network.AbstractResponse;
 import com.jthou.wanandroid.util.RxUtil;
 

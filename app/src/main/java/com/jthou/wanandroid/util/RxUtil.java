@@ -12,10 +12,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
-/**
- * Created by user on 2018/5/21.
- */
-
 public class RxUtil {
 
 

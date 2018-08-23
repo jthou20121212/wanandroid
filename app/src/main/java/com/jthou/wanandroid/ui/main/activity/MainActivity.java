@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -17,6 +16,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,7 +38,9 @@ import com.jthou.wanandroid.ui.main.fragment.SearchFragment;
 import com.jthou.wanandroid.ui.main.fragment.SettingFragment;
 import com.jthou.wanandroid.util.BottomNavigationViewHelper;
 import com.jthou.wanandroid.util.CommonUtils;
+import com.jthou.wanandroid.util.LogHelper;
 import com.jthou.wanandroid.util.StatusBarUtil;
+import com.tencent.bugly.beta.Beta;
 
 import butterknife.BindView;
 
@@ -86,7 +88,15 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         actionBar.setDisplayShowHomeEnabled(true);
         StatusBarUtil.setStatusColor(getWindow(), ContextCompat.getColor(this, R.color.colorPrimary), 1f);
 
-        mDrawerListener = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        mDrawerListener = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+                MenuItem item = mNavigationView.getMenu().findItem(R.id.id_menu_login);
+                boolean loginState = mPresenter.getLoginState();
+                if (!loginState) item.setChecked(false);
+            }
+        };
         mDrawerLayout.addDrawerListener(mDrawerListener);
         mDrawerListener.syncState();
 
@@ -123,6 +133,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mPresenter.autoLogin();
 
         mDelegate.loadMultipleRootFragment(R.id.id_content, mShowFragment, mHomePageFragment, mKnowledgeHierarchyFragment, mNavigationFragment, mProjectFragment, mFavoriteFragment, mSettingFragment, mAboutFragment);
+
+        // 参数1：isManual 用户手动点击检查，非用户点击操作请传false
+        // 参数2：isSilence 是否显示弹窗等交互，[true:没有弹窗和toast] [false:有弹窗或toast]
+        Beta.checkUpgrade(false, false);
     }
 
     @Override
@@ -140,6 +154,15 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.id_load_patch:
+                 String test = null;
+                 Log.e("jthou", "test : " + test.length());
+                Log.e("jthou", "加载补丁包");
+                LogHelper.e("加载补丁包");
+                break;
+            case R.id.id_load_info:
+                LogHelper.e("补丁包信息");
+                break;
             case R.id.id_search:
                 if (mSearchFragment == null)
                     mSearchFragment = SearchFragment.newInstance();
@@ -314,6 +337,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             CookiesManager.clearAllCookies();
         });
         builder.show();
+
+        CommonUtils.showSnackMessage(this, "退出不了嘞");
     }
 
     public void toHomePage() {

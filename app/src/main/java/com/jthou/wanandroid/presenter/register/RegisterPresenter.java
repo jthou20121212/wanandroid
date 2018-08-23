@@ -9,14 +9,10 @@ import com.jthou.wanandroid.model.DataManager;
 import com.jthou.wanandroid.model.entity.LoginInfo;
 import com.jthou.wanandroid.model.entity.RegisterResult;
 import com.jthou.wanandroid.model.event.LoginEvent;
-import com.jthou.wanandroid.util.L;
-import com.jthou.wanandroid.util.LogHelper;
 import com.jthou.wanandroid.util.RxBus;
 import com.jthou.wanandroid.util.RxUtil;
 
 import javax.inject.Inject;
-
-import io.reactivex.functions.Predicate;
 
 
 public class RegisterPresenter extends ParentPresenter<RegisterContract.View> implements RegisterContract.Presenter {

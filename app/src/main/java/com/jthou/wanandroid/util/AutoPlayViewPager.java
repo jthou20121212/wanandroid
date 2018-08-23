@@ -71,7 +71,7 @@ public class AutoPlayViewPager extends ViewPager {
 
         @Override
         public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-            mAdapter.destroyItem(container, position, object);
+            mAdapter.destroyItem(container, position % mAdapter.getCount(), object);
         }
 
     }

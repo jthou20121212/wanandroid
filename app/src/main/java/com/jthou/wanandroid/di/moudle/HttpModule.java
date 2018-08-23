@@ -57,11 +57,11 @@ public class HttpModule {
     @Singleton
     @Provides
     OkHttpClient provideOkHttpClient(OkHttpClient.Builder builder) {
-        if (BuildConfig.DEBUG) {
+//        if (BuildConfig.DEBUG) {
             HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
             builder.addInterceptor(loggingInterceptor);
-        }
+//        }
         File cacheFile = new File(Constants.PATH_CACHE);
         // /data/user/0/com.jthou.wanandroid/cache/data/NetCache
         Cache cache = new Cache(cacheFile, 1024 * 1024 * 50);

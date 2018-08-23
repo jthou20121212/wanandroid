@@ -92,5 +92,6 @@
     <string name="confirm_password">确认密码</string>
     <string name="to_collect">去收藏</string>
     <string name="no_collect">没有收藏任何干货</string>
+    <string name="test">测试</string>
 
 </resources>

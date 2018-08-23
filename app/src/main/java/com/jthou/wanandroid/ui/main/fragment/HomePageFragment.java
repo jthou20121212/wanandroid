@@ -158,6 +158,8 @@ public class HomePageFragment extends ParentFragment<HomePagerPresenter> impleme
 
     @Override
     public void showBannerData(List<Banner> data) {
+        showNormal();
+
         mRefreshLayout.finishRefresh();
         if (data == null || data.isEmpty()) return;
         mBannerData = data;

@@ -2,10 +2,10 @@ package com.jthou.wanandroid.di.component;
 
 import com.jthou.wanandroid.app.WanAndroidApp;
 import com.jthou.wanandroid.di.moudle.ActivityModule;
-import com.jthou.wanandroid.di.moudle.FragmentModule;
-import com.jthou.wanandroid.model.DataManager;
 import com.jthou.wanandroid.di.moudle.AppModule;
+import com.jthou.wanandroid.di.moudle.FragmentModule;
 import com.jthou.wanandroid.di.moudle.HttpModule;
+import com.jthou.wanandroid.model.DataManager;
 
 import javax.inject.Singleton;
 
@@ -18,7 +18,7 @@ import dagger.android.support.AndroidSupportInjectionModule;
         AppModule.class, HttpModule.class, ActivityModule.class, FragmentModule.class})
 public interface AppComponent {
 
-    void inject(WanAndroidApp wanAndroidApp);
+    void inject(WanAndroidApp application);
 
     DataManager getDataManager();
 

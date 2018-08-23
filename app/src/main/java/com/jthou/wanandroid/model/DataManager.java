@@ -12,6 +12,7 @@ import com.jthou.wanandroid.model.network.AbstractResponse;
 import com.jthou.wanandroid.model.network.BaseResponse;
 import com.jthou.wanandroid.model.network.HttpHelper;
 import com.jthou.wanandroid.model.sp.PreferenceHelper;
+import com.jthou.wanandroid.util.LogHelper;
 
 import java.util.List;
 

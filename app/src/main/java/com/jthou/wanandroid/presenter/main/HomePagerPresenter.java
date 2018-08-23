@@ -7,6 +7,7 @@ import com.jthou.wanandroid.model.DataManager;
 import com.jthou.wanandroid.model.entity.CollectEvent;
 import com.jthou.wanandroid.model.entity.NightModeEvent;
 import com.jthou.wanandroid.model.event.LoginEvent;
+import com.jthou.wanandroid.util.LogHelper;
 import com.jthou.wanandroid.util.RxBus;
 import com.jthou.wanandroid.util.RxUtil;
 
@@ -44,6 +45,7 @@ public class HomePagerPresenter extends ParentPresenter<HomePageContract.View> i
 
     @Override
     public void getBannerData() {
+        LogHelper.e("getBannerData");
         addSubscribe(mDataManager.getBannerData()
                 .compose(RxUtil.schedulerHelper())
                 .compose(RxUtil.handleResponse())
