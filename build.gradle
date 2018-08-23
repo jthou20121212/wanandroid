@@ -8,8 +8,8 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.0'
         classpath 'com.jakewharton:butterknife-gradle-plugin:8.4.0'
-        // classpath ('com.tencent.tinker:tinker-patch-gradle-plugin:1.9.1')
-
+        classpath "com.tencent.bugly:tinker-support:latest.release"
+        classpath 'me.tatarka:gradle-retrolambda:3.7.0'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -38,4 +38,5 @@ ext {
     okhttpVersion = "3.10.0"
     retrofitVersion = "2.4.0"
     loggerVersion = "2.2.0"
+    TINKER_VERSION = "1.9.6"
 }
