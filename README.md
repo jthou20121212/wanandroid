@@ -81,4 +81,3 @@ to do
 <br /><br />
 欢迎 start，fork，pr，Issue
 <br /><br />
-~~找工作~~ 
