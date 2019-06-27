@@ -37,7 +37,7 @@
         <activity android:name=".ui.login.LoginActivity" />
         <activity android:name=".ui.search.activity.SearchListActivity" />
         <activity android:name=".ui.main.activity.KnowledgeHierarchyDetailActivity" />
-        <activity android:name=".ui.register.RegisterActivity"></activity>
+        <activity android:name=".ui.register.RegisterActivity" />
         <activity
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale"

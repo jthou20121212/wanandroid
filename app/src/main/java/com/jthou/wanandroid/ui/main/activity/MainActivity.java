@@ -36,7 +36,6 @@ import com.jthou.wanandroid.ui.main.fragment.NavigationFragment;
 import com.jthou.wanandroid.ui.main.fragment.ProjectFragment;
 import com.jthou.wanandroid.ui.main.fragment.SearchFragment;
 import com.jthou.wanandroid.ui.main.fragment.SettingFragment;
-import com.jthou.wanandroid.util.BottomNavigationViewHelper;
 import com.jthou.wanandroid.util.CommonUtils;
 import com.jthou.wanandroid.util.LogHelper;
 import com.jthou.wanandroid.util.StatusBarUtil;
@@ -111,7 +110,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mNavigationView.setItemIconTintList(colorStateList);
 
         mBottomNavigationView.setOnNavigationItemSelectedListener(this);
-        BottomNavigationViewHelper.disableShiftMode(mBottomNavigationView);
+        // BottomNavigationViewHelper.disableShiftMode(mBottomNavigationView);
 
         mCurrentFragment = mHomePageFragment = HomePageFragment.newInstance();
         mKnowledgeHierarchyFragment = KnowledgeHierarchyFragment.newInstance();
@@ -155,8 +154,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.id_load_patch:
-                 String test = null;
-                 Log.e("jthou", "test : " + test.length());
+                String test = null;
+                Log.e("jthou", "test : " + test.length());
                 Log.e("jthou", "加载补丁包");
                 LogHelper.e("加载补丁包");
                 break;
@@ -323,6 +322,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 return mSettingFragment;
             case Constants.TYPE_ABOUT:
                 return mAboutFragment;
+            default:
         }
         return mHomePageFragment;
     }

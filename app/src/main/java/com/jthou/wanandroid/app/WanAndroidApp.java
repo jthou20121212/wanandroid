@@ -2,11 +2,9 @@ package com.jthou.wanandroid.app;
 
 import android.app.Activity;
 import android.app.Application;
-import android.util.Log;
 
 import com.jthou.wanandroid.di.component.AppComponent;
 import com.jthou.wanandroid.di.component.DaggerAppComponent;
-import com.jthou.wanandroid.util.LogHelper;
 import com.tencent.tinker.loader.app.TinkerApplication;
 import com.tencent.tinker.loader.shareutil.ShareConstants;
 

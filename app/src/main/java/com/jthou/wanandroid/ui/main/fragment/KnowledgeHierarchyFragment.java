@@ -86,4 +86,10 @@ public class KnowledgeHierarchyFragment extends ParentFragment<KnowledgeHierarch
         startActivity(intent);
     }
 
+    @Override
+    public void reload() {
+        showLoading();
+        mPresenter.getKnowledgeHierarchyList();
+    }
+
 }

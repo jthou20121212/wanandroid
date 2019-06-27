@@ -41,6 +41,7 @@
             android:layout_gravity="bottom"
             android:background="@color/background"
             app:elevation="@dimen/dp_16"
+            app:labelVisibilityMode="labeled"
             app:itemIconTint="@drawable/nav_item_color_state"
             app:itemTextColor="@drawable/nav_item_color_state"
             app:layout_behavior="@string/bye_burger_bottom_behavior"

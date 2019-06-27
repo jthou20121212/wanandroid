@@ -158,4 +158,10 @@ public class NavigationFragment extends ParentFragment<NavigationPresenter> impl
         }
     }
 
+    @Override
+    public void reload() {
+        showLoading();
+        mPresenter.getNavigationList();
+    }
+
 }

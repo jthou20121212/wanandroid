@@ -6,11 +6,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.support.multidex.MultiDex;
-import android.util.Log;
 
 import com.jthou.wanandroid.BuildConfig;
 import com.jthou.wanandroid.R;
-import com.jthou.wanandroid.util.LogHelper;
 import com.jthou.wanandroid.util.image.GlideImageProvider;
 import com.jthou.wanandroid.util.image.ImageLoader;
 import com.jthou.wanandroid.util.image.ImageProvider;
@@ -19,7 +17,7 @@ import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
-import com.tencent.tinker.loader.app.DefaultApplicationLike;
+import com.tencent.tinker.entry.DefaultApplicationLike;
 
 public class ApplicationLike extends DefaultApplicationLike {
 

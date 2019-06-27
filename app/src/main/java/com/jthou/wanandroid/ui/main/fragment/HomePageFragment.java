@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -224,6 +223,13 @@ public class HomePageFragment extends ParentFragment<HomePagerPresenter> impleme
         intent.putExtra(Key.ARTICLE_ID, article.getId());
         intent.putExtra(Key.ARTICLE_IS_FAVORITE, article.isCollect());
         startActivity(intent);
+    }
+
+    @Override
+    public void reload() {
+        showLoading();
+        mPresenter.getBannerData();
+        mPresenter.getArticleList(mCurrentPage);
     }
 
 }

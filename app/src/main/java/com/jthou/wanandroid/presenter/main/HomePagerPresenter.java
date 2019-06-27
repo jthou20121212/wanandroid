@@ -1,15 +1,17 @@
 package com.jthou.wanandroid.presenter.main;
 
+import com.jthou.wanandroid.base.observer.BaseObserver;
 import com.jthou.wanandroid.base.presenter.ParentPresenter;
 import com.jthou.wanandroid.contract.main.HomePageContract;
-import com.jthou.wanandroid.contract.main.MainContract;
 import com.jthou.wanandroid.model.DataManager;
+import com.jthou.wanandroid.model.entity.Article;
+import com.jthou.wanandroid.model.entity.Banner;
 import com.jthou.wanandroid.model.entity.CollectEvent;
-import com.jthou.wanandroid.model.entity.NightModeEvent;
-import com.jthou.wanandroid.model.event.LoginEvent;
-import com.jthou.wanandroid.util.LogHelper;
+import com.jthou.wanandroid.model.network.BaseResponse;
 import com.jthou.wanandroid.util.RxBus;
 import com.jthou.wanandroid.util.RxUtil;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -40,16 +42,25 @@ public class HomePagerPresenter extends ParentPresenter<HomePageContract.View> i
         addSubscribe(mDataManager.getKnowledgeHierarchyArticleList(page)
                 .compose(RxUtil.schedulerHelper())
                 .compose(RxUtil.handleResponse())
-                .subscribe(articles -> mView.showArticleList(articles.getDatas())));
+                .subscribeWith(new BaseObserver<BaseResponse<Article>>(mView) {
+                    @Override
+                    public void onNext(BaseResponse<Article> articles) {
+                        mView.showArticleList(articles.getDatas());
+                    }
+                }));
     }
 
     @Override
     public void getBannerData() {
-        LogHelper.e("getBannerData");
         addSubscribe(mDataManager.getBannerData()
                 .compose(RxUtil.schedulerHelper())
                 .compose(RxUtil.handleResponse())
-                .subscribe(banners -> mView.showBannerData(banners)));
+                .subscribeWith(new BaseObserver<List<Banner>>(mView) {
+                    @Override
+                    public void onNext(List<Banner> banners) {
+                        mView.showBannerData(banners);
+                    }
+                }));
     }
 
 }

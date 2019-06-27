@@ -2,13 +2,11 @@ package com.jthou.wanandroid.ui.main.fragment;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jthou.wanandroid.R;
 import com.jthou.wanandroid.app.Key;
 import com.jthou.wanandroid.base.fragment.ParentFragment;
@@ -120,6 +118,7 @@ public class FavoriteFragment extends ParentFragment<FavoritePresenter> implemen
 
     @Override
     public void reload() {
+        showLoading();
         mPresenter.getFavoriteArticleList(mCurrentPage = 0);
     }
 

@@ -1,11 +1,9 @@
 package com.jthou.wanandroid.di.moudle;
 
-import com.jthou.wanandroid.BuildConfig;
 import com.jthou.wanandroid.app.Constants;
 import com.jthou.wanandroid.model.api.WanAndroidApi;
 import com.jthou.wanandroid.model.network.CookiesManager;
 import com.jthou.wanandroid.util.CommonUtils;
-import com.jthou.wanandroid.util.LogHelper;
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;
