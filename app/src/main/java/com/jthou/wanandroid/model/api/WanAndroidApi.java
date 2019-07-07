@@ -28,7 +28,7 @@ import retrofit2.http.Query;
 
 public interface WanAndroidApi {
 
-    String HOST = "http://www.wanandroid.com/";
+    String HOST = "https://www.wanandroid.com/";
 
     @GET("article/list/{page}/json")
     Observable<AbstractResponse<BaseResponse<Article>>> getArticleList(@Path("page") int page);

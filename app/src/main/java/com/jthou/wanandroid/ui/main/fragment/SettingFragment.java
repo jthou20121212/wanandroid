@@ -103,6 +103,7 @@ public class SettingFragment extends ParentFragment<SettingPresenter> implements
             case R.id.cb_setting_cache:
                 mPresenter.setAutoCacheState(b);
                 break;
+            default:
         }
     }
 
