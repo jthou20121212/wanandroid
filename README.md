@@ -1,4 +1,4 @@
-# [wanandroid](链接网址 "https://www.wanandroid.com")
+# wanandroid
 api：
 <br />
 [wanandroid](http://www.wanandroid.com )
