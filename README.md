@@ -5,9 +5,9 @@ api：
 <br /><br />
 app：
 <br />
-[GeekNews](https://github.com/codeestX/GeekNews) Dagger2配合MVP的架构，部分页面
+[GeekNews](https://github.com/codeestX/GeekNews) Dagger2 配合 MVP 的架构，部分页面
 <br />
-[Awesome-WanAndroid](https://github.com/JsonChao/Awesome-WanAndroid) dagger.android配合mvp架构，部分页面，动画，图标
+[Awesome-WanAndroid](https://github.com/JsonChao/Awesome-WanAndroid) Dagger2 配合 MVP 的架构，部分页面，动画，图标
 <br /><br />
 rx
 <br />
